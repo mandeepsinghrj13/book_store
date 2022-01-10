@@ -10,12 +10,14 @@ class Service {
     });
   };
 
-  getAllBooks = (body, callBack) => {
-    bookModel.getAllBooks(body, (err, results) => {
-      if (err) {
-        return callBack(err, null);
-      }
-      return callBack(null, results);
+  getAllBooks = (body) => {
+    return new Promise((resolve, reject) => {
+      bookModel.getAllBooks(body, (err, results) => {
+        if (err) {
+          return reject(err, null);
+        }
+        return resolve(null, results);
+      });
     });
   };
 
