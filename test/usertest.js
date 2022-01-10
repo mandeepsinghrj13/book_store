@@ -38,3 +38,33 @@ describe("user registartion", () => {
       });
   });
 });
+
+describe("admin registartion", () => {
+  it("givenRegistrationDetails_whenProper_shouldSaveInDB", (done) => {
+    const registerfaker = {
+      firstName: "adminFirst",
+      lastName: "adminLast",
+      email: "newadminemail@gmail.com",
+      password: "Password@123",
+      role: "admin",
+    };
+    chai
+      .request(server)
+      .post("/adminRegistration")
+      .send(registerfaker)
+      .end((err, res) => {
+        res.should.have.status(200);
+        done();
+      });
+  });
+  it("givenAdminRegistrationDetails_whenNotProper_thenNotSaveInDB", (done) => {
+    chai
+      .request(server)
+      .post("/adminRegistration")
+      .send(registrationData.user.registrationNotProperDetails)
+      .end((err, res) => {
+        res.should.have.status(400);
+        done();
+      });
+  });
+});
