@@ -32,7 +32,6 @@ class Controller {
   };
 
   login = (req, res) => {
-    console.log("= login");
     try {
       const userLoginInfo = {
         email: req.body.email,

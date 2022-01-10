@@ -5,6 +5,14 @@
             "firstName": "mandeep",
             "email": "mandeep123@gmail.com",
             "password": "mandeep123"
-        }       
+        } ,
+        "login": {
+            "email": "deepsingh@gmail.com",
+            "password": "Password@gmail.com"
+        },
+        "loginWithWrongDetails": {
+            "email": "mdeep@gmail.com",
+            "password": "Pass"
+        }      
     }
 }
