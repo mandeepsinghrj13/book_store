@@ -43,6 +43,34 @@
                     }
                 }
             }
+        },
+        "/adminRegistration": {
+            "post": {
+                "tags": ["BookStore"],
+                "description": "Register Admin in Book Store",
+                "parameters": [
+                    {
+                        "name": "Admin Register",
+                        "in": "body",
+                        "description": "Admin Registration",
+                        "schema": { 
+                            "$ref": "#/definitions/registerUser"
+                        }
+                    }
+                ],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "New admin user Registered"
+                    },
+                    "400": {
+                        "description": "User already exist / Wrong Input Validations"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
         }
     },
     "definitions": {
