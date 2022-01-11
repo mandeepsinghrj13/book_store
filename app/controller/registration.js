@@ -1,5 +1,5 @@
 const service = require("../service/registration");
-
+const validation = require("../utility/Validation");
 class Controller {
   register = (req, res) => {
     try {
@@ -10,6 +10,17 @@ class Controller {
         password: req.body.password,
         role: req.role,
       };
+
+      const validationRegister = validation.authUserRegister.validate(registrationDetails);
+
+      if (validationRegister.error) {
+        return res.status(400).send({
+          success: false,
+          message: "Wrong Input Validations",
+          data: validationRegister,
+        });
+      }
+
       service.register(registrationDetails, (error, data) => {
         if (error) {
           return res.status(400).send({
