@@ -71,6 +71,32 @@
                     }
                 }
             }
+        },
+        "/login": {
+            "post": {
+                "tags": ["Login"],
+                "description": "Login user",
+                "parameters": [
+                    {
+                        "name": "Login",
+                        "in": "body",
+                        "description": "User that we want to login",
+                        "schema": {
+                            "$ref": "#/definitions/loginUser"
+                        }
+                    }
+                ],
+
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "ok"
+                    },
+                    "400": {
+                        "description": "Not Found / Wrong Input Validations"
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -97,6 +123,21 @@
                 "email":"example@gmail.com",
                 "Password": "Example@1234"
             }
-        }       
+        }   ,
+        "loginUser": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            },
+            "example": {
+                "email":"singh.mr.1996@gmail.com",
+                "password": "Password@1234"
+            }
+        }    
     }
 }
