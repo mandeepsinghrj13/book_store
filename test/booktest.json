@@ -1,0 +1,6 @@
+{
+    "book": {
+        "validToken": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhRm9yVG9rZW4iOnsiZW1haWwiOiJzaW5naC5tci4xOTk2QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiJ9LCJpYXQiOjE2NDE5MjA1Mzd9.tmGMYfSdOQDHbt5sQJ02pfmf82c_xSH968FYPL0Uu0s",
+        "invalidToken": "bearer yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhRm9yVG9rZW4iOnsiZW1haWwiOiJzaW5naC5tci4xOTk2QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiJ9LCJpYXQiOjE2NDE5MjA1Mzd9.tmGMYfSdOQDHbt5sQJ02pfmf82c_xSH968FYPL0Uu0s"
+        }
+}
