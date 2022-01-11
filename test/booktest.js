@@ -48,3 +48,29 @@ describe("create book api", () => {
       });
   });
 });
+
+describe("get all book api", () => {
+  it("giventoken_whenvalidToken_shouldGetAllbooks", (done) => {
+    const token = bookDB.book.validToken;
+    chai
+      .request(server)
+      .get("/getbooks")
+      .set({ authorization: token })
+      .end((err, res) => {
+        res.should.have.status(200);
+        done();
+      });
+  });
+
+  it("givenCreateBook_whenInvalidToken_shouldNotbeGet", (done) => {
+    const token = bookDB.book.invalidToken;
+    chai
+      .request(server)
+      .get("/getbooks")
+      .set({ authorization: token })
+      .end((err, res) => {
+        res.should.have.status(400);
+        done();
+      });
+  });
+});
