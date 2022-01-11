@@ -141,6 +141,42 @@
                     }
                 }
             }
+        },
+        "/getbooks": {
+            "get": {
+                "tags": [
+                    "Get Books"
+                ],
+                "description": "Get a  book !!",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Token for vaidation",
+                        "schema": {
+                            "type": "string",
+                            "required": true
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "schema": {
+                    "$ref": "#/definitions/books"
+                },
+                "responses": {
+                    "201": {
+                        "description": "get all ote succesfully !!"
+                    },
+                    "401": {
+                        "description": "please enter valid token"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
         }
     },
     "definitions": {
