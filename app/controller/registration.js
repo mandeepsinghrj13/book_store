@@ -48,6 +48,16 @@ class Controller {
         email: req.body.email,
         password: req.body.password,
       };
+
+      const validationLogin = validation.authUserLogin.validate(userLoginInfo);
+
+      if (validationLogin.error) {
+        return res.status(400).send({
+          success: false,
+          message: "Wrong Input Validations",
+          data: validationLogin,
+        });
+      }
       service.userLogin(userLoginInfo, (error, token) => {
         if (error) {
           return res.status(400).json({
