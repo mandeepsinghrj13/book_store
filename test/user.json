@@ -8,11 +8,11 @@
         } ,
         "login": {
             "email": "deepsingh@gmail.com",
-            "password": "Password@gmail.com"
+            "password": "Password@123"
         },
         "loginWithWrongDetails": {
-            "email": "mdeep@gmail.com",
-            "password": "Pass"
+            "email": "deepsingh@gmail.com",
+            "password": "Password@12"
         }      
     }
 }

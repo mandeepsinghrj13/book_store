@@ -1,5 +1,6 @@
 const chai = require("chai");
 const chaiHttp = require("chai-http");
+const faker = require("faker");
 const server = require("../server");
 chai.use(chaiHttp);
 const registrationData = require("./user.json");
@@ -9,9 +10,9 @@ chai.should();
 describe("user registartion", () => {
   it("givenRegistrationDetails_whenProper_shouldSaveInDB", (done) => {
     const registerfaker = {
-      firstName: "userFirst",
-      lastName: "userLast",
-      email: "newuser007@gmail.com",
+      firstName: faker.name.firstName(),
+      lastName: faker.name.lastName(),
+      email: faker.internet.email(),
       password: "Password@123",
       role: "user",
     };
@@ -42,9 +43,9 @@ describe("user registartion", () => {
 describe("admin registartion", () => {
   it("givenRegistrationDetails_whenProper_shouldSaveInDB", (done) => {
     const registerfaker = {
-      firstName: "adminFirst",
-      lastName: "adminLast",
-      email: "newadmin008@gmail.com",
+      firstName: faker.name.firstName(),
+      lastName: faker.name.lastName(),
+      email: faker.internet.email(),
       password: "Password@123",
       role: "admin",
     };
@@ -76,7 +77,7 @@ describe("login", () => {
       .post("/login")
       .send(registrationData.user.login)
       .end((err, res) => {
-        res.should.have.status(400);
+        res.should.have.status(200);
         done();
       });
   });
@@ -86,7 +87,7 @@ describe("login", () => {
       .post("/login")
       .send(registrationData.user.loginWithWrongDetails)
       .end((err, res) => {
-        res.should.have.status(200);
+        res.should.have.status(400);
       });
     done();
   });
