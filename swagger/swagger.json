@@ -1,0 +1,74 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "BookStoreApp",
+        "description": "This app is created as a bookstore",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "host": "localhost:4000",
+    "basePath": "/",
+    "tags": [],
+    "schemes": ["http"],
+    "consumes": ["application/json"],
+    "produces": ["application/json"],
+    "paths": {
+        "/userRegistration": {
+            "post": {
+                "tags": ["BookStore"],
+                "description": "User Register in Book Store",
+                "parameters": [
+                    {
+                        "name": "User Register",
+                        "in": "body",
+                        "description": "User Registration",
+                        "schema": { 
+                            "$ref": "#/definitions/registerUser"
+                        }
+                    }
+                ],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "New user Registered"
+                    },
+                    "400": {
+                        "description": "User already exist / Wrong Input Validations"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "registerUser": {
+            "type": "object",
+            "properties": {
+                "firstName": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+                
+            },
+            "example": {
+                "firstName":"example",
+                "lastName":"example",
+                "email":"example@gmail.com",
+                "Password": "Example@1234"
+            }
+        }       
+    }
+}

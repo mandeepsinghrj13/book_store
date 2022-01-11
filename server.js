@@ -1,8 +1,9 @@
 require("dotenv").config();
 const express = require("express");
-
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("./swagger/swagger.json");
 const app = express();
-
+app.use("/bookstore", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(express.json());
 
 app.get("/", (req, res) => {
