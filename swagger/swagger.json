@@ -97,6 +97,50 @@
                     }
                 }
             }
+        },
+        "/books": {
+            "post": {
+                "tags": [
+                    "Add Books"
+                ],
+                "description": "Add book",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Token for vaidation",
+                        "schema": {
+                            "type": "string",
+                            "required": true
+                        }
+                    },
+                    {
+                        "name": "Add Book",
+                        "in": "body",
+                        "description": "Book body",
+                        "schema": {
+                            "$ref": "#/definitions/books"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "schema": {
+                    "$ref": "#/definitions/books"
+                },
+                "responses": {
+                    "201": {
+                        "description": "Create note succesfully !!"
+                    },
+                    "400": {
+                        "description": "Please enter Valid Token"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -137,6 +181,24 @@
             "example": {
                 "email":"singh.mr.1996@gmail.com",
                 "password": "Password@1234"
+            }
+        },
+        "books": {
+            "type": "object",
+            "properties": {
+                "title": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                }
+            },
+            "example": {
+                "author": "author name",
+                "quantity": "quantity of books",
+                "price": "price of the book",
+                "title": "title",
+                "description": "description "
             }
         }    
     }
