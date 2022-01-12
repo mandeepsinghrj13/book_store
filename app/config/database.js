@@ -1,5 +1,5 @@
 const { createPool } = require("mysql");
-
+const logger = require("../utility/logger");
 const pool = createPool({
   port: process.env.DB_PORT,
   host: process.env.DB_HOST,
@@ -10,6 +10,6 @@ const pool = createPool({
 });
 pool.getConnection(function (err) {
   if (err) throw err;
-  console.log("database connected");
+  logger.info("database connected");
 });
 module.exports = pool;

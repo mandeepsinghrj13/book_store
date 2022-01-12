@@ -1,5 +1,6 @@
 const service = require("../service/books");
 const validation = require("../utility/Validation");
+const logger = require("../utility/logger");
 class BookController {
   addBook = (req, res) => {
     try {
@@ -12,11 +13,13 @@ class BookController {
       };
       service.addBook(bookDetails, (error, data) => {
         if (error) {
+          logger.error("failed to addBook");
           return res.status(400).json({
             message: "failed to addBook",
             success: false,
           });
         } else {
+          logger.info("Successfully inserted book");
           return res.status(201).send({
             message: "Successfully inserted book",
             success: true,
@@ -25,6 +28,7 @@ class BookController {
         }
       });
     } catch {
+      logger.error("Internal server error");
       return res.status(500).json({
         message: "Error occured",
         success: false,
@@ -36,7 +40,7 @@ class BookController {
     try {
       service.getAllBooks(resolve, reject);
       function resolve(data) {
-        console.log(data, "data");
+        logger.info("Get All Books successfully");
         return res.status(200).json({
           message: "Get All Books successfully",
           success: true,
@@ -44,12 +48,14 @@ class BookController {
         });
       }
       function reject() {
+        logger.error("Failed to get all Books");
         return res.status(400).json({
           message: "failed to get all Books",
           success: false,
         });
       }
     } catch {
+      logger.error("Internal Error");
       return res.status(500).json({
         message: "Internal Error",
       });
@@ -65,12 +71,14 @@ class BookController {
           success: false,
         });
       }
+      logger.info("Book retrieved succesfully");
       return res.status(200).json({
         message: "Book retrieved succesfully",
         success: true,
         data: data,
       });
     } catch {
+      logger.error("Internal Error");
       return res.status(500).json({
         message: "Internal Error",
         success: false,
@@ -83,7 +91,7 @@ class BookController {
       const bookDetails = req.body;
       const validationResult = validation.updateBook.validate(bookDetails);
       if (validationResult.error) {
-        console.log(validationResult.error);
+        logger.error("Wrong Input Validations");
         return res.status(400).send({
           success: false,
           message: "Wrong Input Validations",
@@ -92,6 +100,7 @@ class BookController {
       }
       service.updateBook(bookDetails, resolve, reject);
       function resolve(data) {
+        logger.info("book Updated Successfully");
         return res.status(201).send({
           message: "book Updated Successfully",
           success: true,
@@ -99,12 +108,14 @@ class BookController {
         });
       }
       function reject() {
+        logger.error("book Not Updated or bookId Is Not Match");
         return res.status(400).json({
           message: "Note Not Updated or bookId Is Not Match",
           success: false,
         });
       }
     } catch {
+      logger.error("Internal Server Error");
       return res.status(500).json({
         message: "Internal server error",
         success: false,
@@ -116,17 +127,20 @@ class BookController {
     try {
       const data = await service.deleteBook(req.params.bookId);
       if (data.affectedRows == 0) {
+        logger.error("book not found");
         return res.status(404).json({
           message: "book not found",
           success: false,
         });
       }
+      logger.info("book Deleted succesfully");
       return res.status(200).json({
         message: "book Deleted succesfully",
         success: true,
         data: data,
       });
     } catch (err) {
+      logger.error("book not deleted");
       return res.status(500).json({
         message: "book not deleted",
         success: false,

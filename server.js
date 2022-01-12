@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./swagger/swagger.json");
+const logger = require("./app/utility/logger");
 const app = express();
 app.use("/bookstore", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(express.json());
@@ -16,6 +17,6 @@ app.get("/", (req, res) => {
 require("./app/routes/routes")(app);
 
 app.listen(process.env.APP_PORT, () => {
-  console.log("server up and runing on port : ", process.env.APP_PORT);
+  logger.info("server up and runing on port : 4000 ", process.env.APP_PORT);
 });
 module.exports = app;

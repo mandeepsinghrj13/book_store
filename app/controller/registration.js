@@ -1,4 +1,5 @@
 const service = require("../service/registration");
+const logger = require("../utility/logger");
 const validation = require("../utility/Validation");
 class Controller {
   register = (req, res) => {
@@ -14,6 +15,7 @@ class Controller {
       const validationRegister = validation.authUserRegister.validate(registrationDetails);
 
       if (validationRegister.error) {
+        logger.error("Wrong Input Validations");
         return res.status(400).send({
           success: false,
           message: "Wrong Input Validations",
@@ -23,11 +25,13 @@ class Controller {
 
       service.register(registrationDetails, (error, data) => {
         if (error) {
+          logger.error("User already exist");
           return res.status(400).send({
             success: false,
             message: "User already exist",
           });
         }
+        logger.info("registered successfully");
         return res.status(200).send({
           success: true,
           message: "registered successfully",
@@ -35,6 +39,7 @@ class Controller {
         });
       });
     } catch (err) {
+      logger.error("Internal server error");
       res.status(500).send({
         success: false,
         message: "Internal server error",
@@ -52,6 +57,7 @@ class Controller {
       const validationLogin = validation.authUserLogin.validate(userLoginInfo);
 
       if (validationLogin.error) {
+        logger.error("Wrong Input Validations");
         return res.status(400).send({
           success: false,
           message: "Wrong Input Validations",
@@ -60,12 +66,14 @@ class Controller {
       }
       service.userLogin(userLoginInfo, (error, token) => {
         if (error) {
+          logger.error("Unable to login. Please enter correct info");
           return res.status(400).json({
             success: false,
             message: "Unable to login. Please enter correct info",
             error,
           });
         }
+        logger.info("User logged in successfully");
         return res.status(200).json({
           success: true,
           message: "User logged in successfully",
@@ -73,6 +81,7 @@ class Controller {
         });
       });
     } catch (error) {
+      logger.error("Error while Login");
       return res.status(500).json({
         success: false,
         message: "Error while Login",
