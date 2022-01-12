@@ -75,6 +75,44 @@ describe("get all book api", () => {
   });
 });
 
+describe("Get Book by Id api", () => {
+  it("givenPoperDetails_ShouldGetbookById", (done) => {
+    const token = bookDB.book.validToken;
+    chai
+      .request(server)
+      .get("/books/5")
+      .set({ authorization: token })
+      .end((err, res) => {
+        res.should.have.status(200);
+        done();
+      });
+  });
+
+  it("givenImpoperToken_ShouldNotGetbook", (done) => {
+    const token = bookDB.book.invalidToken;
+    chai
+      .request(server)
+      .get("/books/5")
+      .set({ authorization: token })
+      .end((err, res) => {
+        res.should.have.status(400);
+        done();
+      });
+  });
+
+  it("givenPoperDetails_ShouldGetbookById", (done) => {
+    const token = bookDB.book.validToken;
+    chai
+      .request(server)
+      .get("/books/6")
+      .set({ authorization: token })
+      .end((err, res) => {
+        res.should.have.status(200);
+        done();
+      });
+  });
+});
+
 describe("Update boook api", () => {
   it("givenPoperDetails_ShouldUpdateBook", (done) => {
     const token = bookDB.book.validToken;
@@ -97,7 +135,7 @@ describe("Update boook api", () => {
       });
   });
 
-  it.only("givenNotPoperDetails_ShouldNotUpdateBook_AuthorWrong", (done) => {
+  it("givenNotPoperDetails_ShouldNotUpdateBook_AuthorWrong", (done) => {
     const token = bookDB.book.validToken;
     const updatebook = {
       id: "20",
@@ -118,7 +156,7 @@ describe("Update boook api", () => {
       });
   });
 
-  it.only("givenNotPoperDetails_ShouldNotUpdateBook_TitleWrong", (done) => {
+  it("givenNotPoperDetails_ShouldNotUpdateBook_TitleWrong", (done) => {
     const token = bookDB.book.validToken;
     const updatebook = {
       id: "20",
@@ -139,7 +177,7 @@ describe("Update boook api", () => {
       });
   });
 
-  it.only("givenInvalidToken_ShouldNotUpdateNote", (done) => {
+  it("givenInvalidToken_ShouldNotUpdateNote", (done) => {
     const token = bookDB.book.invalidToken;
     const updatebook = {
       id: "20",
