@@ -29,9 +29,9 @@ class Model {
     });
   };
 
-  getBook = async (id) => {
+  getBook = async (bookDetails) => {
     try {
-      return await query(`select id, author, title, quantity, price, description from book where id = ?`, [id]);
+      return await query(`select id, author, title, quantity, price, description from book where id = ?`, [bookDetails]);
     } catch (err) {
       return err;
     }

@@ -58,7 +58,7 @@ class BookController {
 
   getBook = async (req, res) => {
     try {
-      const data = await service.getBook(req.params.id);
+      const data = await service.getBook(req.params.bookId);
       if (!data) {
         return res.json({
           message: "Book not found",

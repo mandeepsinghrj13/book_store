@@ -178,7 +178,7 @@
                 }
             }
         },
-        "/getbooks/{id}": {
+        "/books/{id}": {
             "get": {
                 "tags": [
                     "Get Books"

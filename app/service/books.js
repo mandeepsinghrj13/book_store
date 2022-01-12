@@ -17,9 +17,9 @@ class Service {
       .catch(() => reject());
   };
 
-  getBook = async (id) => {
+  getBook = async (bookDetails) => {
     try {
-      return await bookModel.getBook(id);
+      return await bookModel.getBook(bookDetails);
     } catch (err) {
       return err;
     }
