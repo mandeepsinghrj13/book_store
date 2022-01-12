@@ -1,4 +1,6 @@
 const pool = require("../config/database");
+const util = require("util");
+const query = util.promisify(pool.query).bind(pool);
 class Model {
   addBook = (data, callBack) => {
     pool.query(
@@ -19,49 +21,43 @@ class Model {
     );
   };
 
-  getAllBooks = (callBack) => {
-    pool.query(`select id, author, title, quantity, price, description from book`, [], (error, results, fields) => {
-      if (error) {
-        callBack(error);
-      }
-      return callBack(null, results);
+  getAllBooks = () => {
+    return new Promise((resolve, reject) => {
+      query(`select id, author, title, quantity, price, description from book`, [])
+        .then((data) => resolve(data))
+        .catch((err) => reject(err));
     });
   };
 
-  getBook = (id, callBack) => {
-    pool.query(
-      `select id, author, title, quantity, price, description from book where id = ?`,
-      [id],
-      (error, results, fields) => {
-        if (error) {
-          callBack(error);
-        }
-        return callBack(null, results[0]);
-      }
-    );
+  getBook = async (id) => {
+    try {
+      return await query(`select id, author, title, quantity, price, description from book where id = ?`, [id]);
+    } catch (err) {
+      return err;
+    }
   };
 
-  updateBook = (data, callBack) => {
-    pool.query(
-      `update book set author=?, title=?, quantity=?, price=?, description=? where id = ?`,
-      [data.author, data.title, data.quantity, data.price, data.description, data.id],
-      (error, results, fields) => {
-        if (error) {
-          callBack(error);
-        }
-        return callBack(null, results);
-      }
-    );
-  };
-
-  deleteBook = (data, callBack) => {
-    pool.query(`delete from book where id = ?`, [data], (error, results, fields) => {
-      if (error) {
-        callBack(error);
-      } else {
-        return callBack(null, results);
-      }
+  updateBook = (bookDetails) => {
+    return new Promise((resolve, reject) => {
+      query(`update book set author=?, title=?, quantity=?, price=?, description=? where id = ?`, [
+        bookDetails.author,
+        bookDetails.title,
+        bookDetails.quantity,
+        bookDetails.price,
+        bookDetails.description,
+        bookDetails.id,
+      ])
+        .then((data) => resolve(data))
+        .catch((err) => reject(err));
     });
+  };
+
+  deleteBook = async (bookDetails) => {
+    try {
+      return await query(`delete from book where id = ?`, [bookDetails]);
+    } catch (err) {
+      return err;
+    }
   };
 }
 module.exports = new Model();

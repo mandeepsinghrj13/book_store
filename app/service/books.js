@@ -10,42 +10,34 @@ class Service {
     });
   };
 
-  getAllBooks = (body) => {
-    return new Promise((resolve, reject) => {
-      bookModel.getAllBooks(body, (err, results) => {
-        if (err) {
-          return reject(err, null);
-        }
-        return resolve(null, results);
-      });
-    });
+  getAllBooks = (resolve, reject) => {
+    bookModel
+      .getAllBooks()
+      .then((data) => resolve(data))
+      .catch(() => reject());
   };
 
-  getBook = (id, callBack) => {
-    bookModel.getBook(id, (err, results) => {
-      if (err) {
-        return callBack(err, null);
-      }
-      return callBack(null, results);
-    });
+  getBook = async (id) => {
+    try {
+      return await bookModel.getBook(id);
+    } catch (err) {
+      return err;
+    }
   };
 
-  updateBook = (data, callBack) => {
-    bookModel.updateBook(data, (err, results) => {
-      if (err) {
-        return callBack(err, null);
-      }
-      return callBack(null, results);
-    });
+  updateBook = (bookDetails, resolve, reject) => {
+    bookModel
+      .updateBook(bookDetails)
+      .then((data) => resolve(data))
+      .catch(() => reject());
   };
 
-  deleteBook = (data, callBack) => {
-    bookModel.deleteBook(data, (err, results) => {
-      if (err) {
-        return callBack(err, null);
-      }
-      return callBack(null, results);
-    });
+  deleteBook = async (bookDetails) => {
+    try {
+      return await bookModel.deleteBook(bookDetails);
+    } catch (err) {
+      return err;
+    }
   };
 }
 module.exports = new Service();

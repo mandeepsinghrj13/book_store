@@ -34,19 +34,21 @@ class BookController {
 
   getAllBooks = (req, res) => {
     try {
-      service.getAllBooks((err, results) => {
-        if (err) {
-          return res.json({
-            message: "failed to get all Books",
-            success: false,
-          });
-        }
-        return res.json({
+      service.getAllBooks(resolve, reject);
+      function resolve(data) {
+        console.log(data, "data");
+        return res.status(200).json({
           message: "Get All Books successfully",
           success: true,
-          data: results,
+          data: data,
         });
-      });
+      }
+      function reject() {
+        return res.status(400).json({
+          message: "failed to get all Books",
+          success: false,
+        });
+      }
     } catch {
       return res.status(500).json({
         message: "Internal Error",
@@ -54,56 +56,45 @@ class BookController {
     }
   };
 
-  getBook = (req, res) => {
+  getBook = async (req, res) => {
     try {
-      const id = req.params.id;
-      service.getBook(id, (err, results) => {
-        if (err) {
-          console.log(err);
-          return;
-        }
-        if (!results) {
-          return res.json({
-            message: "Book not found",
-            success: false,
-          });
-        }
-        return res.status(200).json({
-          message: "Book found succesfully",
-          success: true,
-          data: results,
+      const data = await service.getBook(req.params.id);
+      if (!data) {
+        return res.json({
+          message: "Book not found",
+          success: false,
         });
+      }
+      return res.status(200).json({
+        message: "Book retrieved succesfully",
+        success: true,
+        data: data,
       });
-    } catch (err) {
+    } catch {
       return res.status(500).json({
         message: "Internal Error",
         success: false,
-        data: err,
       });
     }
   };
 
   updateBook = (req, res) => {
     try {
-      const data = req.body;
-      service.updateBook(data, (err, results) => {
-        if (err) {
-          console.log(err);
-          return;
-        }
-        if (!results) {
-          return res.json({
-            message: "Note Not Updated or bookId Is Not Match",
-            success: false,
-          });
-        }
-        console.log(results, "resultes");
-        return res.json({
+      const bookDetails = req.body;
+      service.updateBook(bookDetails, resolve, reject);
+      function resolve(data) {
+        return res.status(201).send({
           message: "book Updated Successfully",
           success: true,
-          data: results,
+          data: data,
         });
-      });
+      }
+      function reject() {
+        return res.status(400).json({
+          message: "Note Not Updated or bookId Is Not Match",
+          success: false,
+        });
+      }
     } catch {
       return res.status(500).json({
         message: "Internal server error",
@@ -112,25 +103,19 @@ class BookController {
     }
   };
 
-  deleteBook = (req, res) => {
+  deleteBook = async (req, res) => {
     try {
-      const data = req.params.bookId;
-      service.deleteBook(data, (err, results) => {
-        if (err) {
-          console.log(err);
-          return;
-        }
-        if (results.affectedRows == 0) {
-          return res.json({
-            message: "book Id not found",
-            success: false,
-          });
-        }
-        return res.json({
-          message: "book Deleted succesfully",
-          success: true,
-          data: results,
+      const data = await service.deleteBook(req.params.bookId);
+      if (data.affectedRows == 0) {
+        return res.status(404).json({
+          message: "book not found",
+          success: false,
         });
+      }
+      return res.status(200).json({
+        message: "book Deleted succesfully",
+        success: true,
+        data: data,
       });
     } catch (err) {
       return res.status(500).json({
