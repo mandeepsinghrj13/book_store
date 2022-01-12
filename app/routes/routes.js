@@ -13,6 +13,6 @@ module.exports = (app) => {
   app.post("/books", middleware.validateToken, helper.verifyRole, booksController.addBook);
   app.get("/getbooks", middleware.validateToken, booksController.getAllBooks);
   app.get("/books/:bookId", middleware.validateToken, booksController.getBook);
-  app.put("/books", middleware.validateToken, helper.verifyRole, booksController.updateBook);
+  app.put("/updatebooks", middleware.validateToken, helper.verifyRole, booksController.updateBook);
   app.delete("/deletebooks/:bookId", middleware.validateToken, helper.verifyRole, booksController.deleteBook);
 };

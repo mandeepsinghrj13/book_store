@@ -221,6 +221,48 @@
                     }
                 }
             }
+        },
+        "/updatebooks": {
+            "put": {
+                "tags": [
+                    "update Books"
+                ],
+                "description": "update a book by ID for perticuler person id !!",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Token for vaidation",
+                        "schema": {
+                            "type": "string",
+                            "required": true
+                        }
+                    },
+                    
+                    {
+                        "in": "body",
+                        "name": "note",
+                        "description": "Note body",
+                        "schema": {
+                            "$ref": "#/definitions/updatebooks"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "update book succesfully !!"
+                    },
+                    "401": {
+                        "description": "Please enter Valid Token"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -290,6 +332,25 @@
             },
             "example": {
                 "id": "1"
+            }
+        },
+        "updatebooks": {
+            "type": "object",
+            "properties": {
+                "title": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                }
+            },
+            "example": {
+                "id":"id",
+                "author": "Write a author name",
+                "quantity": "quantity of books",
+                "price": "price of the book",
+                "title": "Write a title here.....",
+                "description": "Write a description here....."
             }
         }    
     }
