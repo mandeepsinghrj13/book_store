@@ -198,3 +198,41 @@ describe("Update boook api", () => {
       });
   });
 });
+
+describe("delete book api", () => {
+  it("givenImPoperDetails_ShouldDeleteBook", (done) => {
+    const token = bookDB.book.validToken;
+    chai
+      .request(server)
+      .delete("/deletebooks/18")
+      .set({ authorization: token })
+      .end((err, res) => {
+        res.should.have.status(200);
+        done();
+      });
+  });
+
+  it("givenImPoperDetails_ShouldBookNotFound", (done) => {
+    const token = bookDB.book.validToken;
+    chai
+      .request(server)
+      .delete("/deletebooks/19")
+      .set({ authorization: token })
+      .end((err, res) => {
+        res.should.have.status(404);
+        done();
+      });
+  });
+
+  it("givenInvalidToken_ShouldNotDeleteBook", (done) => {
+    const token = bookDB.book.invalidToken;
+    chai
+      .request(server)
+      .delete("/deletebooks/20")
+      .set({ authorization: token })
+      .end((err, res) => {
+        res.should.have.status(400);
+        done();
+      });
+  });
+});
