@@ -1,5 +1,5 @@
 const service = require("../service/books");
-
+const validation = require("../utility/Validation");
 class BookController {
   addBook = (req, res) => {
     try {
@@ -81,6 +81,15 @@ class BookController {
   updateBook = (req, res) => {
     try {
       const bookDetails = req.body;
+      const validationResult = validation.updateBook.validate(bookDetails);
+      if (validationResult.error) {
+        console.log(validationResult.error);
+        return res.status(400).send({
+          success: false,
+          message: "Wrong Input Validations",
+          data: validationResult,
+        });
+      }
       service.updateBook(bookDetails, resolve, reject);
       function resolve(data) {
         return res.status(201).send({
