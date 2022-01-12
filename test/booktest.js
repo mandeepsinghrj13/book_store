@@ -74,3 +74,89 @@ describe("get all book api", () => {
       });
   });
 });
+
+describe("Update boook api", () => {
+  it("givenPoperDetails_ShouldUpdateBook", (done) => {
+    const token = bookDB.book.validToken;
+    const updatebook = {
+      id: "20",
+      author: faker.lorem.word(),
+      quantity: 100,
+      price: 350,
+      title: faker.lorem.word(),
+      description: faker.lorem.sentence(),
+    };
+    chai
+      .request(server)
+      .put("/updatebooks")
+      .set({ authorization: token })
+      .send(updatebook)
+      .end((err, res) => {
+        res.should.have.status(201);
+        done();
+      });
+  });
+
+  it.only("givenNotPoperDetails_ShouldNotUpdateBook_AuthorWrong", (done) => {
+    const token = bookDB.book.validToken;
+    const updatebook = {
+      id: "20",
+      author: "m",
+      quantity: 100,
+      price: 350,
+      title: faker.lorem.word(),
+      description: faker.lorem.sentence(),
+    };
+    chai
+      .request(server)
+      .put("/updatebooks")
+      .set({ authorization: token })
+      .send(updatebook)
+      .end((err, res) => {
+        res.should.have.status(400);
+        done();
+      });
+  });
+
+  it.only("givenNotPoperDetails_ShouldNotUpdateBook_TitleWrong", (done) => {
+    const token = bookDB.book.validToken;
+    const updatebook = {
+      id: "20",
+      author: faker.lorem.word(),
+      quantity: 100,
+      price: 350,
+      title: "d",
+      description: faker.lorem.sentence(),
+    };
+    chai
+      .request(server)
+      .put("/updatebooks")
+      .set({ authorization: token })
+      .send(updatebook)
+      .end((err, res) => {
+        res.should.have.status(400);
+        done();
+      });
+  });
+
+  it.only("givenInvalidToken_ShouldNotUpdateNote", (done) => {
+    const token = bookDB.book.invalidToken;
+    const updatebook = {
+      id: "20",
+      author: faker.lorem.word(),
+      quantity: 100,
+      price: 350,
+      title: faker.lorem.word(),
+      description: faker.lorem.sentence(),
+    };
+    chai
+      .request(server)
+      .put("/updatebooks")
+      .set({ authorization: token })
+      .send(updatebook)
+      .end((err, res) => {
+        res.should.have.status(400);
+        done();
+      });
+  });
+});
