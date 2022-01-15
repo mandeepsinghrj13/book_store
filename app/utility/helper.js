@@ -11,12 +11,13 @@ class Helper {
 
   token = (data) => {
     const dataForToken = {
-      id: data._id,
+      id: data.id,
       firstName: data.firstName,
       lastName: data.lastName,
       email: data.email,
       role: data.role,
     };
+    console.log(dataForToken, "data for token");
     return jwt.sign({ dataForToken }, process.env.JWT_SECRET);
   };
 
@@ -26,6 +27,7 @@ class Helper {
     const token = myArr[1];
     try {
       if (token) {
+        console.log(token, "validateToken");
         jwt.verify(token, process.env.JWT_SECRET, (error, decoded) => {
           if (error) {
             logger.error("Invalid Token");

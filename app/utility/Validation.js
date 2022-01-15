@@ -24,7 +24,7 @@ class Validation {
 
     description: Joi.string().required(),
 
-    id: Joi.number().integer().required(),
+    bookId: Joi.string().required(),
   });
 }
 module.exports = new Validation();

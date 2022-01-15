@@ -17,9 +17,10 @@ class Service {
       .catch(() => reject());
   };
 
-  getBook = async (bookDetails) => {
+  getBook = async (id) => {
+    console.log(id, "bookDetails in service");
     try {
-      return await bookModel.getBook(bookDetails);
+      return await bookModel.getBook(id);
     } catch (err) {
       return err;
     }

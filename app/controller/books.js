@@ -64,8 +64,9 @@ class BookController {
 
   getBook = async (req, res) => {
     try {
-      const data = await service.getBook(req.params.bookId);
-      if (!data) {
+      const id = { userId: req.user.dataForToken.id, bookId: req.params.id };
+      const data = await service.getBook(id);
+      if (data.message) {
         return res.json({
           message: "Book not found",
           success: false,
@@ -88,7 +89,14 @@ class BookController {
 
   updateBook = (req, res) => {
     try {
-      const bookDetails = req.body;
+      const bookDetails = {
+        author: req.body.author,
+        title: req.body.title,
+        quantity: req.body.quantity,
+        price: req.body.price,
+        description: req.body.description,
+        bookId: req.params.bookId,
+      };
       const validationResult = validation.updateBook.validate(bookDetails);
       if (validationResult.error) {
         logger.error("Wrong Input Validations");
@@ -126,7 +134,7 @@ class BookController {
   deleteBook = async (req, res) => {
     try {
       const data = await service.deleteBook(req.params.bookId);
-      if (data.affectedRows == 0) {
+      if (data == null) {
         logger.error("book not found");
         return res.status(404).json({
           message: "book not found",

@@ -1,15 +1,21 @@
-const { createPool } = require("mysql");
+const mongoose = require("mongoose");
 const logger = require("../utility/logger");
-const pool = createPool({
-  port: process.env.DB_PORT,
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.MYSQL_DB,
-  connectionLimit: 1000,
-});
-pool.getConnection(function (err) {
-  if (err) throw err;
-  logger.info("database connected");
-});
-module.exports = pool;
+const url = process.env.URL;
+class DbConnection {
+  database = () => {
+    mongoose.Promise = global.Promise;
+    // Connecting to the database
+    mongoose
+      .connect(url, {
+        useNewUrlParser: true,
+      })
+      .then(() => {
+        logger.info("Successfully connected to the database");
+      })
+      .catch((err) => {
+        logger.error("Could not connect to the database. Exiting now...", err);
+        process.exit();
+      });
+  };
+}
+module.exports = new DbConnection();

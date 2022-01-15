@@ -1,37 +1,64 @@
-const pool = require("../config/database");
-const util = require("util");
-const query = util.promisify(pool.query).bind(pool);
+const logger = require("../utility/logger");
+const mongoose = require("mongoose");
+const bookSchema = mongoose.Schema(
+  {
+    author: {
+      type: String,
+      required: true,
+    },
+    title: {
+      type: String,
+      required: true,
+    },
+    quantity: {
+      type: Number,
+      required: true,
+    },
+    price: {
+      type: Number,
+      required: true,
+    },
+    description: {
+      type: String,
+      required: true,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
+
+const Books = mongoose.model("Books", bookSchema);
 class Model {
-  addBook = (data, callBack) => {
-    pool.query(
-      `insert into book(author, title, quantity, price, description) values(?,?,?,?,?)`,
-      [data.author, data.title, data.quantity, data.price, data.description],
-      (error, results, fields) => {
-        if (error) {
-          if (error.code === "ER_DUP_ENTRY") {
-            let err = "book already there";
-            return callBack(err, null);
-          } else {
-            return callBack(error, null);
-          }
-        } else {
-          return callBack(null, results);
-        }
+  addBook = (Bookinfo, callback) => {
+    const book = new Books({
+      author: Bookinfo.author,
+      title: Bookinfo.title,
+      quantity: Bookinfo.quantity,
+      price: Bookinfo.price,
+      description: Bookinfo.description,
+    });
+    book.save((error, data) => {
+      if (error) {
+        logger.error(error);
+        return callback(error, null);
+      } else {
+        return callback(null, data);
       }
-    );
+    });
   };
 
   getAllBooks = () => {
     return new Promise((resolve, reject) => {
-      query(`select id, author, title, quantity, price, description from book`, [])
+      Books.find()
         .then((data) => resolve(data))
         .catch((err) => reject(err));
     });
   };
 
-  getBook = async (bookDetails) => {
+  getBook = async (id) => {
     try {
-      return await query(`select id, author, title, quantity, price, description from book where id = ?`, [bookDetails]);
+      return await Books.find({ $and: [{ _id: id.bookId }, { userId: id.userId }] });
     } catch (err) {
       return err;
     }
@@ -39,14 +66,18 @@ class Model {
 
   updateBook = (bookDetails) => {
     return new Promise((resolve, reject) => {
-      query(`update book set author=?, title=?, quantity=?, price=?, description=? where id = ?`, [
-        bookDetails.author,
-        bookDetails.title,
-        bookDetails.quantity,
-        bookDetails.price,
-        bookDetails.description,
-        bookDetails.id,
-      ])
+      Books.findByIdAndUpdate(
+        bookDetails.bookId,
+        {
+          author: bookDetails.author,
+          title: bookDetails.title,
+          quantity: bookDetails.quantity,
+          price: bookDetails.price,
+          description: bookDetails.description,
+        },
+        { new: true }
+      )
+
         .then((data) => resolve(data))
         .catch((err) => reject(err));
     });
@@ -54,7 +85,7 @@ class Model {
 
   deleteBook = async (bookDetails) => {
     try {
-      return await query(`delete from book where id = ?`, [bookDetails]);
+      return await Books.findByIdAndRemove(bookDetails);
     } catch (err) {
       return err;
     }

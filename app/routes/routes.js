@@ -1,5 +1,6 @@
 const controller = require("../controller/registration");
 const booksController = require("../controller/books");
+const cartController = require("../controller/card");
 const helper = require("../utility/helper.js");
 const middleware = require("../utility/helper.js");
 module.exports = (app) => {
@@ -12,7 +13,9 @@ module.exports = (app) => {
   // Book CURD api
   app.post("/books", middleware.validateToken, helper.verifyRole, booksController.addBook);
   app.get("/getbooks", middleware.validateToken, booksController.getAllBooks);
-  app.get("/books/:bookId", middleware.validateToken, booksController.getBook);
-  app.put("/updatebooks", middleware.validateToken, helper.verifyRole, booksController.updateBook);
+  app.get("/books/:id", middleware.validateToken, booksController.getBook);
+  app.put("/updatebooks/:bookId", middleware.validateToken, helper.verifyRole, booksController.updateBook);
   app.delete("/deletebooks/:bookId", middleware.validateToken, helper.verifyRole, booksController.deleteBook);
+
+  app.post("/createcart/:id", middleware.validateToken, cartController.createCart);
 };
