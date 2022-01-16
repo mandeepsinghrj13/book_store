@@ -28,5 +28,31 @@ class CartController {
       });
     }
   };
+
+  getAllCarts = (req, res) => {
+    try {
+      services
+        .getAllCarts(req)
+        .then((carts) => {
+          res.status(200).send({
+            success: true,
+            message: "get all carts successfully",
+            carts,
+          });
+        })
+        .catch((err) => {
+          res.status(400).send({
+            success: false,
+            message: "unable to fetch carts",
+            err,
+          });
+        });
+    } catch (err) {
+      res.status(500).send({
+        success: false,
+        message: "Internal server error",
+      });
+    }
+  };
 }
 module.exports = new CartController();

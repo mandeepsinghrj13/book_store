@@ -18,4 +18,5 @@ module.exports = (app) => {
   app.delete("/deletebooks/:bookId", middleware.validateToken, helper.verifyRole, booksController.deleteBook);
 
   app.post("/createcart/:id", middleware.validateToken, cartController.createCart);
+  app.get("/carts", middleware.validateToken, cartController.getAllCarts);
 };

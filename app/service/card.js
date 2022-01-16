@@ -10,6 +10,13 @@ class Service {
       }
     });
   };
+
+  getAllCarts = (data) => {
+    return new Promise((resolve, reject) => {
+      const result = models.getAllCarts(data);
+      result.then((cartData) => resolve({ cartData })).catch((err) => reject({ err }));
+    });
+  };
 }
 
 module.exports = new Service();
