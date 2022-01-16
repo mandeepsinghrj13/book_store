@@ -20,4 +20,5 @@ module.exports = (app) => {
   app.post("/createcart/:id", middleware.validateToken, cartController.createCart);
   app.get("/carts", middleware.validateToken, cartController.getAllCarts);
   app.get("/cart/:userId", middleware.validateToken, cartController.getCart);
+  app.put("/placeOrder/:cartId", middleware.validateToken, cartController.placeOrder);
 };

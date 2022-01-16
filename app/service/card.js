@@ -24,6 +24,13 @@ class Service {
       result.then((cartData) => resolve({ cartData })).catch((err) => reject({ err }));
     });
   };
+
+  placeOrder = (data) => {
+    return new Promise((resolve, reject) => {
+      const result = models.placeOrder(data);
+      result.then((book) => resolve({ book })).catch((err) => reject({ err }));
+    });
+  };
 }
 
 module.exports = new Service();

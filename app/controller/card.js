@@ -83,5 +83,35 @@ class CartController {
       });
     }
   };
+
+  placeOrder = (req, res) => {
+    try {
+      const data = {
+        cartId: req.params.cartId,
+        userId: req.user.dataForToken.id,
+        isPurchased: req.body.isPurchased,
+      };
+      services
+        .placeOrder(data)
+        .then(() => {
+          res.status(200).send({
+            success: true,
+            message: "order placed successfully",
+          });
+        })
+        .catch((err) => {
+          res.status(400).send({
+            success: false,
+            message: "unable to place order",
+            err,
+          });
+        });
+    } catch (err) {
+      res.status(500).send({
+        success: false,
+        message: "Internal server error",
+      });
+    }
+  };
 }
 module.exports = new CartController();
