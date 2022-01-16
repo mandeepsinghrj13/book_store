@@ -54,5 +54,34 @@ class CartController {
       });
     }
   };
+
+  getCart = (req, res) => {
+    try {
+      const data = {
+        userId: req.params.userId, // registration id
+      };
+      services
+        .getCart(data)
+        .then((carts) => {
+          res.status(200).send({
+            success: true,
+            message: "get cart by id successfully",
+            carts,
+          });
+        })
+        .catch((err) => {
+          res.status(400).send({
+            success: false,
+            message: "unable to fetch cart",
+            err,
+          });
+        });
+    } catch (err) {
+      res.status(500).send({
+        success: false,
+        message: "Internal server error",
+      });
+    }
+  };
 }
 module.exports = new CartController();

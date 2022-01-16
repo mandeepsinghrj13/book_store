@@ -75,6 +75,14 @@ class CartModels {
         .catch((err) => reject(err));
     });
   };
+
+  getCart = (data) => {
+    return new Promise((resolve, reject) => {
+      CartModel.findOne({ userId: data.userId })
+        .then((books) => resolve(books))
+        .catch((err) => reject(err));
+    });
+  };
 }
 
 module.exports = new CartModels();

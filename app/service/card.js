@@ -17,6 +17,13 @@ class Service {
       result.then((cartData) => resolve({ cartData })).catch((err) => reject({ err }));
     });
   };
+
+  getCart = (data) => {
+    return new Promise((resolve, reject) => {
+      const result = models.getCart(data);
+      result.then((cartData) => resolve({ cartData })).catch((err) => reject({ err }));
+    });
+  };
 }
 
 module.exports = new Service();
