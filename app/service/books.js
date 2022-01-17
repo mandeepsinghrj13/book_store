@@ -26,6 +26,13 @@ class Service {
     }
   };
 
+  searchBook = (bookDetails, resolve, reject) => {
+    bookModel
+      .searchBook(bookDetails)
+      .then((data) => resolve(data))
+      .catch(() => reject());
+  };
+
   updateBook = (bookDetails, resolve, reject) => {
     bookModel
       .updateBook(bookDetails)

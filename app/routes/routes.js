@@ -14,9 +14,11 @@ module.exports = (app) => {
   app.post("/books", middleware.validateToken, helper.verifyRole, booksController.addBook);
   app.get("/getbooks", middleware.validateToken, booksController.getAllBooks);
   app.get("/books/:id", middleware.validateToken, booksController.getBook);
+  app.get("/searchbook", middleware.validateToken, booksController.searchBook);
   app.put("/updatebooks/:bookId", middleware.validateToken, helper.verifyRole, booksController.updateBook);
   app.delete("/deletebooks/:bookId", middleware.validateToken, helper.verifyRole, booksController.deleteBook);
 
+  // Cart CURD api
   app.post("/addToCart/:id", middleware.validateToken, cartController.addToCart);
   app.get("/carts", middleware.validateToken, cartController.getAllCarts);
   app.get("/cart/:userId", middleware.validateToken, cartController.getCart);

@@ -87,6 +87,37 @@ class BookController {
     }
   };
 
+  searchBook = (req, res) => {
+    try {
+      const bookDetails = {
+        userId: req.user.dataForToken.id,
+        title: req.body.title,
+      };
+      service.searchBook(bookDetails, resolve, reject);
+      function reject(data) {
+        return res.json({
+          message: "not found book",
+          success: false,
+          data: data,
+        });
+      }
+      function resolve(data) {
+        logger.info("search book retrieved succesfully");
+        return res.status(200).json({
+          message: "search book retrieved succesfully",
+          success: true,
+          data: data,
+        });
+      }
+    } catch {
+      logger.error("Internal Error");
+      return res.status(500).json({
+        message: "Internal Error",
+        success: false,
+      });
+    }
+  };
+
   updateBook = (req, res) => {
     try {
       const bookDetails = {
