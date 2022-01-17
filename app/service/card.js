@@ -1,8 +1,8 @@
 const models = require("../models/card");
 
 class Service {
-  createCart = (userInfo, callback) => {
-    models.createCart(userInfo, (err, data) => {
+  addToCart = (userInfo, callback) => {
+    models.addToCart(userInfo, (err, data) => {
       if (err) {
         return callback(err, null);
       } else {

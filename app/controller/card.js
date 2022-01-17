@@ -1,6 +1,6 @@
 const services = require("../service/card");
 class CartController {
-  createCart = (req, res) => {
+  addToCart = (req, res) => {
     try {
       const userInfo = {
         userId: req.user.dataForToken.id,
@@ -8,7 +8,7 @@ class CartController {
         qty: req.body.qty,
       };
       console.log(userInfo, "userInfo in controller");
-      services.createCart(userInfo, (err, data) => {
+      services.addToCart(userInfo, (err, data) => {
         if (err) {
           return res.status(400).json({
             message: err,

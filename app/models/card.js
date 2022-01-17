@@ -21,10 +21,10 @@ const cartSchema = mongoose.Schema(
   }
 );
 
-const CartModel = mongoose.model("Carts", cartSchema);
+const CartModel = mongoose.model("Cart", cartSchema);
 
 class CartModels {
-  createCart = (userInfo, callback) => {
+  addToCart = (userInfo, callback) => {
     const data = new CartModel({
       userId: userInfo.userId,
       book: [
@@ -42,6 +42,7 @@ class CartModels {
           data
             .save()
             .then((data) => {
+              console.log("empty");
               return callback(null, data);
             })
             .catch((error) => {
@@ -49,6 +50,28 @@ class CartModels {
             });
         } else {
           let updated = false;
+          const index = result.book.findIndex((item) => item.bookId == userInfo.itemId);
+          console.log("index = ", index);
+          if (index >= 0) {
+            updated = true;
+            const newBook = {
+              bookId: result.book[index].bookId,
+              qty: result.book[index].qty + userInfo.qty,
+            };
+            console.log("Old Book", result.book[index]);
+            console.log("newBook = ", newBook);
+            CartModel.updateOne({ _id: result._id }, { $pull: { book: result.book[index] } }, { new: true }, (err, res) => {
+              console.log(err, res);
+              console.log("65");
+            });
+            CartModel.updateOne({ _id: result._id }, { $push: { book: newBook } }, { new: true }, (err, res) => {
+              if (err) {
+                return callback("Error in updating quantity", null);
+              } else {
+                return callback(null, "book updated");
+              }
+            });
+          }
           if (updated == false) {
             const newBook = {
               bookId: userInfo.itemId,

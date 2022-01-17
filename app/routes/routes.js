@@ -17,7 +17,7 @@ module.exports = (app) => {
   app.put("/updatebooks/:bookId", middleware.validateToken, helper.verifyRole, booksController.updateBook);
   app.delete("/deletebooks/:bookId", middleware.validateToken, helper.verifyRole, booksController.deleteBook);
 
-  app.post("/createcart/:id", middleware.validateToken, cartController.createCart);
+  app.post("/addToCart/:id", middleware.validateToken, cartController.addToCart);
   app.get("/carts", middleware.validateToken, cartController.getAllCarts);
   app.get("/cart/:userId", middleware.validateToken, cartController.getCart);
   app.put("/placeOrder/:cartId", middleware.validateToken, cartController.placeOrder);
