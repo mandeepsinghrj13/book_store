@@ -311,6 +311,51 @@
                     }
                 }
             }
+        },
+        "/addToCart/{id}": {
+            "post": {
+                "tags": ["Add To Cart"],
+                
+                "description": "Add a book to the cart",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Enter token recieved in login",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Enter id of the book",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "Add Bok to the cart",
+                        "in": "body",
+                        "description": "Add to Cart",
+                        "schema": { 
+                            "$ref": "#/definitions/addToCart"
+                        }
+                    }
+                ],
+                "produces": ["application/json"],
+                "responses": {
+                    "201": {
+                        "description": "Item added successfully"
+                    },
+                    "401":{
+                        "description": "Unauthorized token"
+                    },
+                    "400": {
+                        "description": "Error"
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -402,6 +447,14 @@
                 "price": 100, 
                 "description": "Write a description here....."
             }
-        }    
+        }   ,
+        "addToCart": {
+            "type": "object",
+            "properties": {
+                "qty": {
+                    "type": "number"
+                }
+            }
+        } 
     }
 }
