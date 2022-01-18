@@ -378,6 +378,38 @@
                 "500":{"description":"Couldnt retrieve carts"}
               }
             }
+        },
+        "/cart/{id}":{
+            "get":{
+              "tags":["get cart by id"],
+              "description":"Gets cart by id",
+              "parameters":[
+                {
+                  "in":"header",
+                  "name":"authorization",
+                  "description":"Token for validation",
+                  "schema":{
+                    "type":"string",
+                    "required":true
+                  }
+                },
+                {
+                  "in":"path",
+                  "name":"id",
+                  "description":"User id",
+                  "schema":{
+                    "type":"string",
+                    "required":true
+                  }
+                }
+              ],
+              "produces":["application/json"],
+              "responses":{
+                "200":{"description":"get cart by id successfully"},
+                "500":{"description":"Internal server error"},
+                "400":{"description":"unable to fetch cart"}
+              }
+            }
         }
     },
     "definitions": {
