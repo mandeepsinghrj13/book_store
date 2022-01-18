@@ -64,12 +64,12 @@ class Model {
     }
   };
 
-  searchBook = (bookDetails) => {
-    return new Promise((resolve, reject) => {
-      Books.find({ $and: [{ title: bookDetails.title }, { userId: bookDetails.userId }] })
-        .then((data) => resolve(data))
-        .catch((err) => reject(err));
-    });
+  searchBook = async (id) => {
+    try {
+      return await Books.find({ $and: [{ title: id.title }, { userId: id.userId }] });
+    } catch (err) {
+      return err;
+    }
   };
 
   updateBook = (bookDetails) => {

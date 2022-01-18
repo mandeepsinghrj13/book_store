@@ -26,11 +26,12 @@ class Service {
     }
   };
 
-  searchBook = (bookDetails, resolve, reject) => {
-    bookModel
-      .searchBook(bookDetails)
-      .then((data) => resolve(data))
-      .catch(() => reject());
+  searchBook = async (id) => {
+    try {
+      return await bookModel.searchBook(id);
+    } catch (err) {
+      return err;
+    }
   };
 
   updateBook = (bookDetails, resolve, reject) => {

@@ -87,25 +87,21 @@ class BookController {
     }
   };
 
-  searchBook = (req, res) => {
+  searchBook = async (req, res) => {
     try {
-      const bookDetails = {
-        userId: req.user.dataForToken.id,
-        title: req.body.title,
-      };
-      service.searchBook(bookDetails, resolve, reject);
-      function reject(data) {
-        return res.json({
-          message: "not found book",
-          success: false,
-          data: data,
-        });
-      }
-      function resolve(data) {
+      const id = { userId: req.user.dataForToken.id, title: req.body.title };
+      const data = await service.searchBook(id);
+      if (data.length !== 0) {
         logger.info("search book retrieved succesfully");
         return res.status(200).json({
           message: "search book retrieved succesfully",
           success: true,
+          data: data,
+        });
+      } else {
+        return res.json({
+          message: "not found book",
+          success: false,
           data: data,
         });
       }

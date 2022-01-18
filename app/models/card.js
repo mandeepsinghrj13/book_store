@@ -68,6 +68,7 @@ class CartModels {
               if (err) {
                 return callback("Error in updating quantity", null);
               } else {
+                console.log(result._id, "_id");
                 return callback(null, "book updated");
               }
             });
