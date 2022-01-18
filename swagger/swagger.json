@@ -222,7 +222,7 @@
                 }
             }
         },
-        "/updatebooks": {
+        "/updatebooks/{bookId}": {
             "put": {
                 "tags": [
                     "update Books"
@@ -238,7 +238,14 @@
                             "required": true
                         }
                     },
-                    
+                    {
+                        "in": "path",
+                        "name": "bookId",
+                        "description": "Id of book you want to update",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
                     {
                         "in": "body",
                         "name": "note",
@@ -383,14 +390,16 @@
                 },
                 "description": {
                     "type": "string"
+                },
+                "bookId": {
+                    "type": "string"
                 }
             },
             "example": {
-                "id":"id",
                 "author": "Write a author name",
-                "quantity": "quantity of books",
-                "price": "price of the book",
                 "title": "Write a title here.....",
+                "quantity": 1,
+                "price": 100, 
                 "description": "Write a description here....."
             }
         }    
