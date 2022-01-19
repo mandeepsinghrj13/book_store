@@ -440,6 +440,41 @@
                 "400":{"description":"unable to fetch cart"}
               }
             }
+        },
+        "/removeBookFromCart/{id}":{
+            "delete":{
+              "tags":["Delete Book into cart"],
+              "description":"Delete a Book",
+              "parameters":[{
+                "in":"header",
+                  "name":"authorization",
+                  "description":"Token for validation",
+                  "schema":{
+                    "type":"string",
+                    "required":true
+                }
+              },{
+                "in":"path",
+                "name":"id",
+                "description":"User id",
+                "schema":{
+                  "type":"string",
+                  "required":true
+                }
+              },
+              {
+                "in":"body",
+                "name":"cart",
+                "description":"delete bookfromCart",
+                  "schema":{"$ref":"#/definitions/removebook"}
+                }],
+              "produces":["application/json"],
+              "responses":{
+                "200":{"description":"book removed from cart successfully"},
+                "500":{"description":"Internal server error"},
+                "400":{"description":"Invalid Token/unable to remove "}
+              }
+            }    
         }
     },
     "definitions": {
@@ -538,6 +573,14 @@
                 "qty": {
                     "type": "number"
                 }
+            }
+        },
+        "removebook":{
+            "type":"object",
+            "properties":{
+              "bookId":{
+                "type":"string"
+              }
             }
         } 
     }

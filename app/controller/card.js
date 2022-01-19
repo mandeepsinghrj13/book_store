@@ -113,5 +113,30 @@ class CartController {
       });
     }
   };
+
+  removeBookFromCart = async (req, res) => {
+    try {
+      const id = { userId: req.user.dataForToken.id, bookId: req.body.bookId };
+      const data = await services.removeBookFromCart(id);
+      if (data) {
+        console.log("controller", data);
+        return res.status(200).json({
+          success: true,
+          message: "book removed from cart successfully",
+          data: data,
+        });
+      } else {
+        return res.status(400).json({
+          success: false,
+          message: "book was unable to remove from cart",
+        });
+      }
+    } catch {
+      res.status(500).send({
+        success: false,
+        message: "Internal server error",
+      });
+    }
+  };
 }
 module.exports = new CartController();

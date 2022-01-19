@@ -31,6 +31,14 @@ class Service {
       result.then((book) => resolve({ book })).catch((err) => reject({ err }));
     });
   };
+
+  removeBookFromCart = async (data) => {
+    try {
+      return await models.removeBookFromCart(data);
+    } catch (err) {
+      return err;
+    }
+  };
 }
 
 module.exports = new Service();

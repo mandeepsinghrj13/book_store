@@ -115,6 +115,21 @@ class CartModels {
         .catch((err) => reject(err));
     });
   };
+
+  removeBookFromCart = async (data) => {
+    try {
+      const bookpresent = await CartModel.findOne({ userId: data.userId }, { book: { bookId: data.bookId } });
+      console.log("bookpresent", bookpresent);
+      if (bookpresent) {
+        await CartModel.updateOne({ userId: data.userId }, { $pull: { book: { bookId: data.bookId } } });
+        return true;
+      } else {
+        return false;
+      }
+    } catch (err) {
+      return err;
+    }
+  };
 }
 
 module.exports = new CartModels();
