@@ -23,5 +23,5 @@ module.exports = (app) => {
   app.get("/carts", middleware.validateToken, cartController.getAllCarts);
   app.get("/cart/:userId", middleware.validateToken, cartController.getCart);
   app.put("/placeOrder/:cartId", middleware.validateToken, cartController.placeOrder);
-  app.delete("/removeBookFromCart/:id", middleware.validateToken, cartController.removeBookFromCart);
+  app.delete("/removeBookFromCart", middleware.validateToken, cartController.removeBookFromCart);
 };

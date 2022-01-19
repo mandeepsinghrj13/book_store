@@ -441,7 +441,7 @@
               }
             }
         },
-        "/removeBookFromCart/{id}":{
+        "/removeBookFromCart":{
             "delete":{
               "tags":["Delete Book into cart"],
               "description":"Delete a Book",
@@ -452,14 +452,6 @@
                   "schema":{
                     "type":"string",
                     "required":true
-                }
-              },{
-                "in":"path",
-                "name":"id",
-                "description":"User id",
-                "schema":{
-                  "type":"string",
-                  "required":true
                 }
               },
               {
