@@ -89,7 +89,7 @@ class BookController {
 
   searchBook = async (req, res) => {
     try {
-      const id = { userId: req.user.dataForToken.id, title: req.body.title };
+      const id = { userId: req.user.dataForToken.id, title: req.params.title };
       const data = await service.searchBook(id);
       if (data.length !== 0) {
         logger.info("search book retrieved succesfully");

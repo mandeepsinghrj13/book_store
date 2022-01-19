@@ -222,6 +222,36 @@
                 }
             }
         },
+        "/searchbook/{title}":{
+            "get":{
+              "tags":["search title"],
+              "description":"search title",
+              "parameters":[
+                {
+                  "in":"header",
+                  "name":"authorization",
+                  "description":"Token for validation",
+                  "schema":{
+                    "type":"string",
+                    "required":true
+                  }
+                },
+                {
+                    "in": "path",
+                    "name": "title",
+                    "description": "search title"
+                }
+              ],
+              "produces": [
+                "application/json"
+            ],
+              "responses":{
+                "200":{"description":"search by title successfully"},
+                "500":{"description":"Internal server error"},
+                "400":{"description":"not found book"}
+              }
+            }
+        },
         "/updatebooks/{bookId}": {
             "put": {
                 "tags": [

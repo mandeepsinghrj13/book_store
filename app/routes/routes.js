@@ -14,7 +14,7 @@ module.exports = (app) => {
   app.post("/books", middleware.validateToken, helper.verifyRole, booksController.addBook);
   app.get("/getbooks", middleware.validateToken, booksController.getAllBooks);
   app.get("/books/:id", middleware.validateToken, booksController.getBook);
-  app.get("/searchbook", middleware.validateToken, booksController.searchBook);
+  app.get("/searchbook/:title", middleware.validateToken, booksController.searchBook);
   app.put("/updatebooks/:bookId", middleware.validateToken, helper.verifyRole, booksController.updateBook);
   app.delete("/deletebooks/:bookId", middleware.validateToken, helper.verifyRole, booksController.deleteBook);
 
