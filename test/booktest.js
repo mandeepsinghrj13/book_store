@@ -8,7 +8,7 @@ const bookDB = require("./booktest.json");
 chai.should();
 
 describe("create book api", () => {
-  it.skip("givenAddBook_whenValidToken_shouldBeCreated", (done) => {
+  it("givenAddBook_whenValidToken_shouldBeCreated", (done) => {
     const token = bookDB.book.validToken;
     const createBook = {
       author: faker.lorem.word(),
@@ -113,8 +113,46 @@ describe("Get Book by Id api", () => {
   });
 });
 
+describe("searchbook api", () => {
+  it("givenImPoperDetails_ShouldSearchBook", (done) => {
+    const token = bookDB.book.validToken;
+    chai
+      .request(server)
+      .get("/searchbook/title")
+      .set({ authorization: token })
+      .end((err, res) => {
+        res.should.have.status(200);
+        done();
+      });
+  });
+
+  it("givenImPoperDetails_ShouldSearchBookNotFound", (done) => {
+    const token = bookDB.book.validToken;
+    chai
+      .request(server)
+      .get("/searchbook/tit")
+      .set({ authorization: token })
+      .end((err, res) => {
+        res.should.have.status(200);
+        done();
+      });
+  });
+
+  it("givenInvalidToken_ShouldSearchBookInvalidToken", (done) => {
+    const token = bookDB.book.invalidToken;
+    chai
+      .request(server)
+      .get("/searchbook/title")
+      .set({ authorization: token })
+      .end((err, res) => {
+        res.should.have.status(400);
+        done();
+      });
+  });
+});
+
 describe("Update boook api", () => {
-  it.only("givenPoperDetails_ShouldUpdateBook", (done) => {
+  it("givenPoperDetails_ShouldUpdateBook", (done) => {
     const token = bookDB.book.validToken;
     const updatebook = {
       author: faker.lorem.word(),
@@ -134,7 +172,7 @@ describe("Update boook api", () => {
       });
   });
 
-  it.only("givenNotPoperDetails_ShouldNotUpdateBook_AuthorWrong", (done) => {
+  it("givenNotPoperDetails_ShouldNotUpdateBook_AuthorWrong", (done) => {
     const token = bookDB.book.validToken;
     const updatebook = {
       author: "m",
@@ -154,7 +192,7 @@ describe("Update boook api", () => {
       });
   });
 
-  it.only("givenNotPoperDetails_ShouldNotUpdateBook_TitleWrong", (done) => {
+  it("givenNotPoperDetails_ShouldNotUpdateBook_TitleWrong", (done) => {
     const token = bookDB.book.validToken;
     const updatebook = {
       author: faker.lorem.word(),
@@ -174,7 +212,7 @@ describe("Update boook api", () => {
       });
   });
 
-  it.only("givenInvalidToken_ShouldNotUpdateNote", (done) => {
+  it("givenInvalidToken_ShouldNotUpdateNote", (done) => {
     const token = bookDB.book.invalidToken;
     const updatebook = {
       author: faker.lorem.word(),
