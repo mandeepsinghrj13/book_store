@@ -95,12 +95,58 @@ describe("Get cart by ID api", () => {
       });
   });
 
+  it("giveninvalidDetails_ShouldWrongId", (done) => {
+    const token = data.validToken;
+    chai
+      .request(server)
+      .get("/cart/61e2959a4cc338e59bcb067")
+      .set({ authorization: token })
+      .end((err, res) => {
+        res.should.have.status(400);
+        done();
+      });
+  });
+
   it("giveninvalidToken_ShouldNotGetcart", (done) => {
     const token = data.invalidToken;
     chai
       .request(server)
       .get("/cart/61e2959a4cc338e59bcb0671")
       .set({ authorization: token })
+      .end((err, res) => {
+        res.should.have.status(400);
+        done();
+      });
+  });
+});
+
+describe("placeOrder api", () => {
+  it("givenValidToken_ShouldBePurchased", (done) => {
+    const token = data.validToken;
+    const isPurchased = {
+      isPurchased: true,
+    };
+    chai
+      .request(server)
+      .put("/placeOrder/61e67486c8033e2f6fe1a56a")
+      .set({ authorization: token })
+      .send(isPurchased)
+      .end((err, res) => {
+        res.should.have.status(200);
+        done();
+      });
+  });
+
+  it("givenInvalidToken_ShouldNotPurchased", (done) => {
+    const token = data.invalidToken;
+    const isPurchased = {
+      isPurchased: true,
+    };
+    chai
+      .request(server)
+      .put("/placeOrder/61e67486c8033e2f6fe1a56a")
+      .set({ authorization: token })
+      .send(isPurchased)
       .end((err, res) => {
         res.should.have.status(400);
         done();
