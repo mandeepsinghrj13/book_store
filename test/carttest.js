@@ -57,7 +57,7 @@ describe("AddToCart api", () => {
 });
 
 describe("Get AllCarts", () => {
-  it.only("Getallcart_whenvalidToken_shouldGetAllCards", (done) => {
+  it("Getallcart_whenvalidToken_shouldGetAllCards", (done) => {
     const token = data.validToken;
     chai
       .request(server)
@@ -69,11 +69,37 @@ describe("Get AllCarts", () => {
       });
   });
 
-  it.only("getAllCarts_whenInvalidToken_shouldNotbeGet", (done) => {
+  it("getAllCarts_whenInvalidToken_shouldNotbeGet", (done) => {
     const token = data.invalidToken;
     chai
       .request(server)
       .get("/carts")
+      .set({ authorization: token })
+      .end((err, res) => {
+        res.should.have.status(400);
+        done();
+      });
+  });
+});
+
+describe("Get cart by ID api", () => {
+  it("givenPoperDetails_ShouldGetcart", (done) => {
+    const token = data.validToken;
+    chai
+      .request(server)
+      .get("/cart/61e2959a4cc338e59bcb0671")
+      .set({ authorization: token })
+      .end((err, res) => {
+        res.should.have.status(200);
+        done();
+      });
+  });
+
+  it("giveninvalidToken_ShouldNotGetcart", (done) => {
+    const token = data.invalidToken;
+    chai
+      .request(server)
+      .get("/cart/61e2959a4cc338e59bcb0671")
       .set({ authorization: token })
       .end((err, res) => {
         res.should.have.status(400);
