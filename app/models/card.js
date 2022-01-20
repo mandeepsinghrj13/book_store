@@ -1,3 +1,4 @@
+const res = require("express/lib/response");
 const mongoose = require("mongoose");
 
 const cartSchema = mongoose.Schema(
@@ -58,17 +59,17 @@ class CartModels {
               bookId: result.book[index].bookId,
               qty: result.book[index].qty + userInfo.qty,
             };
-            console.log("Old Book", result.book[index]);
-            console.log("newBook = ", newBook);
+            //console.log("Old Book", result.book[index]);
+            //console.log("newBook = ", newBook);
             CartModel.updateOne({ _id: result._id }, { $pull: { book: result.book[index] } }, { new: true }, (err, res) => {
+              console.log(result._id, "id pull");
               console.log(err, res);
-              console.log("65");
             });
             CartModel.updateOne({ _id: result._id }, { $push: { book: newBook } }, { new: true }, (err, res) => {
               if (err) {
                 return callback("Error in updating quantity", null);
               } else {
-                console.log(result._id, "_id");
+                console.log(result._id, "_id push");
                 return callback(null, "book updated");
               }
             });
@@ -118,13 +119,16 @@ class CartModels {
 
   removeBookFromCart = async (data) => {
     try {
-      const bookpresent = await CartModel.findOne({ userId: data.userId }, { book: { bookId: data.bookId } });
-      console.log("bookpresent", bookpresent);
-      if (bookpresent) {
-        await CartModel.updateOne({ userId: data.userId }, { $pull: { book: { bookId: data.bookId } } });
-        return true;
-      } else {
-        return false;
+      let cart = await CartModel.findOne({ userId: data.userId });
+      if (cart) {
+        let itemIndex = cart.book.findIndex((p) => p.bookId == data.bookId);
+        console.log("itemIndex = ", itemIndex);
+        if (itemIndex >= 1) {
+          await CartModel.updateOne({ userId: data.userId }, { $pull: { book: { bookId: data.bookId } } });
+          return true;
+        } else {
+          return false;
+        }
       }
     } catch (err) {
       return err;
