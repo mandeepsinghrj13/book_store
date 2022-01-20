@@ -491,7 +491,7 @@
                 "firstName":"example",
                 "lastName":"example",
                 "email":"example@gmail.com",
-                "Password": "Example@1234"
+                "password": "Password@1234"
             }
         }   ,
         "loginUser": {

@@ -8,7 +8,7 @@ const bookDB = require("./booktest.json");
 chai.should();
 
 describe("create book api", () => {
-  it("givenAddBook_whenValidToken_shouldBeCreated", (done) => {
+  it.skip("givenAddBook_whenValidToken_shouldBeCreated", (done) => {
     const token = bookDB.book.validToken;
     const createBook = {
       author: faker.lorem.word(),
@@ -80,7 +80,7 @@ describe("Get Book by Id api", () => {
     const token = bookDB.book.validToken;
     chai
       .request(server)
-      .get("/books/5")
+      .get("/books/61e2c6144726986d2c1eb5fa")
       .set({ authorization: token })
       .end((err, res) => {
         res.should.have.status(200);
@@ -104,7 +104,7 @@ describe("Get Book by Id api", () => {
     const token = bookDB.book.validToken;
     chai
       .request(server)
-      .get("/books/6")
+      .get("/books/61e2c6144726986d2c1eb5fa")
       .set({ authorization: token })
       .end((err, res) => {
         res.should.have.status(200);
@@ -114,10 +114,9 @@ describe("Get Book by Id api", () => {
 });
 
 describe("Update boook api", () => {
-  it("givenPoperDetails_ShouldUpdateBook", (done) => {
+  it.only("givenPoperDetails_ShouldUpdateBook", (done) => {
     const token = bookDB.book.validToken;
     const updatebook = {
-      id: "20",
       author: faker.lorem.word(),
       quantity: 100,
       price: 350,
@@ -126,7 +125,7 @@ describe("Update boook api", () => {
     };
     chai
       .request(server)
-      .put("/updatebooks")
+      .put("/updatebooks/61e8d2db04c7acfeb5c7b444")
       .set({ authorization: token })
       .send(updatebook)
       .end((err, res) => {
@@ -135,10 +134,9 @@ describe("Update boook api", () => {
       });
   });
 
-  it("givenNotPoperDetails_ShouldNotUpdateBook_AuthorWrong", (done) => {
+  it.only("givenNotPoperDetails_ShouldNotUpdateBook_AuthorWrong", (done) => {
     const token = bookDB.book.validToken;
     const updatebook = {
-      id: "20",
       author: "m",
       quantity: 100,
       price: 350,
@@ -147,7 +145,7 @@ describe("Update boook api", () => {
     };
     chai
       .request(server)
-      .put("/updatebooks")
+      .put("/updatebooks/61e8d2db04c7acfeb5c7b444")
       .set({ authorization: token })
       .send(updatebook)
       .end((err, res) => {
@@ -156,10 +154,9 @@ describe("Update boook api", () => {
       });
   });
 
-  it("givenNotPoperDetails_ShouldNotUpdateBook_TitleWrong", (done) => {
+  it.only("givenNotPoperDetails_ShouldNotUpdateBook_TitleWrong", (done) => {
     const token = bookDB.book.validToken;
     const updatebook = {
-      id: "20",
       author: faker.lorem.word(),
       quantity: 100,
       price: 350,
@@ -168,7 +165,7 @@ describe("Update boook api", () => {
     };
     chai
       .request(server)
-      .put("/updatebooks")
+      .put("/updatebooks/61e8d2db04c7acfeb5c7b444")
       .set({ authorization: token })
       .send(updatebook)
       .end((err, res) => {
@@ -177,10 +174,9 @@ describe("Update boook api", () => {
       });
   });
 
-  it("givenInvalidToken_ShouldNotUpdateNote", (done) => {
+  it.only("givenInvalidToken_ShouldNotUpdateNote", (done) => {
     const token = bookDB.book.invalidToken;
     const updatebook = {
-      id: "20",
       author: faker.lorem.word(),
       quantity: 100,
       price: 350,
@@ -189,7 +185,7 @@ describe("Update boook api", () => {
     };
     chai
       .request(server)
-      .put("/updatebooks")
+      .put("/updatebooks/61e8d2db04c7acfeb5c7b444")
       .set({ authorization: token })
       .send(updatebook)
       .end((err, res) => {
@@ -200,11 +196,11 @@ describe("Update boook api", () => {
 });
 
 describe("delete book api", () => {
-  it("givenImPoperDetails_ShouldDeleteBook", (done) => {
+  it.skip("givenImPoperDetails_ShouldDeleteBook", (done) => {
     const token = bookDB.book.validToken;
     chai
       .request(server)
-      .delete("/deletebooks/18")
+      .delete("/deletebooks/61e8e03261ed61a336e451cb")
       .set({ authorization: token })
       .end((err, res) => {
         res.should.have.status(200);
@@ -216,7 +212,7 @@ describe("delete book api", () => {
     const token = bookDB.book.validToken;
     chai
       .request(server)
-      .delete("/deletebooks/19")
+      .delete("/deletebooks/61e8e0ba6080d09d3569b079")
       .set({ authorization: token })
       .end((err, res) => {
         res.should.have.status(404);

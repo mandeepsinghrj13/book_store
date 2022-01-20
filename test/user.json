@@ -12,7 +12,7 @@
         },
         "loginWithWrongDetails": {
             "email": "deepsingh@gmail.com",
-            "password": "Password@12"
+            "password": "Password"
         }      
     }
 }

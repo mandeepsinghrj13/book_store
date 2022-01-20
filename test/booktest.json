@@ -1,12 +1,7 @@
 {
     "book": {
-        "validToken": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhRm9yVG9rZW4iOnsiZW1haWwiOiJzaW5naC5tci4xOTk2QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiJ9LCJpYXQiOjE2NDE5MjA1Mzd9.tmGMYfSdOQDHbt5sQJ02pfmf82c_xSH968FYPL0Uu0s",
+        "validToken": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhRm9yVG9rZW4iOnsiaWQiOiI2MWUyOTU5YTRjYzMzOGU1OWJjYjA2NzEiLCJmaXJzdE5hbWUiOiJtYW5kZWVwIiwibGFzdE5hbWUiOiJzaW5naCIsImVtYWlsIjoibWFuZGVlcHNpbmdoMTUxMjE5OTZAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIn0sImlhdCI6MTY0MjQwMDgyNH0.CQTUGkBB8nEhia-lX7kzH6KoEll5A6YnFetAo745zrY",
         "invalidToken": "bearer yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhRm9yVG9rZW4iOnsiZW1haWwiOiJzaW5naC5tci4xOTk2QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiJ9LCJpYXQiOjE2NDE5MjA1Mzd9.tmGMYfSdOQDHbt5sQJ02pfmf82c_xSH968FYPL0Uu0s"
-        },
-        "updateBook": {
-            "validData": {
-                "id": "5"
-            }
         }
 
 }
