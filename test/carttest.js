@@ -39,7 +39,7 @@ describe("AddToCart api", () => {
       });
   });
 
-  it.only("givenValidBook_ValidTokenAndNegativeQuantityShouldReturn201StatusCode", (done) => {
+  it("givenValidBook_ValidTokenAndNegativeQuantityShouldReturn201StatusCode", (done) => {
     const token = data.invalidToken;
     const qty = {
       qty: -1,
@@ -49,6 +49,32 @@ describe("AddToCart api", () => {
       .post("/addToCart/61e2ede9c3e5c7f047590d32")
       .set({ authorization: token })
       .send(qty)
+      .end((err, res) => {
+        res.should.have.status(400);
+        done();
+      });
+  });
+});
+
+describe("Get AllCarts", () => {
+  it.only("Getallcart_whenvalidToken_shouldGetAllCards", (done) => {
+    const token = data.validToken;
+    chai
+      .request(server)
+      .get("/carts")
+      .set({ authorization: token })
+      .end((err, res) => {
+        res.should.have.status(200);
+        done();
+      });
+  });
+
+  it.only("getAllCarts_whenInvalidToken_shouldNotbeGet", (done) => {
+    const token = data.invalidToken;
+    chai
+      .request(server)
+      .get("/carts")
+      .set({ authorization: token })
       .end((err, res) => {
         res.should.have.status(400);
         done();
