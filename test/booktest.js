@@ -2,7 +2,7 @@ const chai = require("chai");
 const chaiHttp = require("chai-http");
 const server = require("../server");
 const faker = require("faker");
-
+const { uuid } = require("uuidv4");
 chai.use(chaiHttp);
 const bookDB = require("./booktest.json");
 chai.should();
@@ -234,11 +234,12 @@ describe("Update boook api", () => {
 });
 
 describe("delete book api", () => {
-  it.skip("givenImPoperDetails_ShouldDeleteBook", (done) => {
+  it("givenImPoperDetails_ShouldDeleteBook", (done) => {
     const token = bookDB.book.validToken;
+    const id = uuid();
     chai
       .request(server)
-      .delete("/deletebooks/61e8e03261ed61a336e451cb")
+      .delete(`/deletebooks/${id}`)
       .set({ authorization: token })
       .end((err, res) => {
         res.should.have.status(200);
