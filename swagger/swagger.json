@@ -441,6 +441,44 @@
               }
             }
         },
+        "/carts/placeOrder/{cartId}":{
+            "put":{
+              "tags":["Update Order"],
+              "description":"PlaceOder",
+              "parameters":[
+                {
+                  "in":"header",
+                  "name":"authorization",
+                  "description":"Token for validation",
+                  "schema":{
+                    "type":"string",
+                    "required":true
+                }
+              },
+              {
+                "in":"path",
+                "name":"cartId",
+                "description":"cart id",
+                "schema":{
+                  "type":"string",
+                  "required":true
+                }
+              },
+              {
+                "in":"body",
+                "name":"cart",
+                "description":"PlaceOrder",
+                  "schema":{"$ref":"#/definitions/cart"}
+                }
+              ],
+              "produces":["application/json"],
+              "responses":{
+                "200":{"description":"order placed successfully"},
+                "500":{"description":"Failed to update cart"},
+                "400":{"description":"unable to place order"}
+              }
+            }
+        },
         "/carts/removeBookFromCart":{
             "delete":{
               "tags":["Delete Book into cart"],
@@ -565,6 +603,14 @@
                 "qty": {
                     "type": "number"
                 }
+            }
+        },
+        "cart":{
+            "type":"object",
+            "properties":{
+              "isPurchased":{
+                "type":"string"
+              }
             }
         },
         "removebook":{
