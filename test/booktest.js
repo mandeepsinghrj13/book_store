@@ -19,7 +19,7 @@ describe("create book api", () => {
     };
     chai
       .request(server)
-      .post("/books")
+      .post("/books/addbook")
       .set({ authorization: token })
       .send(createBook)
       .end((err, res) => {
@@ -39,7 +39,7 @@ describe("create book api", () => {
     };
     chai
       .request(server)
-      .post("/books")
+      .post("/books/addbook")
       .set({ authorization: token })
       .send(createBook)
       .end((err, res) => {
@@ -54,7 +54,7 @@ describe("get all book api", () => {
     const token = bookDB.book.validToken;
     chai
       .request(server)
-      .get("/getbooks")
+      .get("/books/getallbook")
       .set({ authorization: token })
       .end((err, res) => {
         res.should.have.status(200);
@@ -66,7 +66,7 @@ describe("get all book api", () => {
     const token = bookDB.book.invalidToken;
     chai
       .request(server)
-      .get("/getbooks")
+      .get("/books/getallbook")
       .set({ authorization: token })
       .end((err, res) => {
         res.should.have.status(400);
@@ -80,7 +80,7 @@ describe("Get Book by Id api", () => {
     const token = bookDB.book.validToken;
     chai
       .request(server)
-      .get("/books/61e2c6144726986d2c1eb5fa")
+      .get("/books/getbook/61e2c6144726986d2c1eb5fa")
       .set({ authorization: token })
       .end((err, res) => {
         res.should.have.status(200);
@@ -92,7 +92,7 @@ describe("Get Book by Id api", () => {
     const token = bookDB.book.invalidToken;
     chai
       .request(server)
-      .get("/books/5")
+      .get("/books/getbook/5")
       .set({ authorization: token })
       .end((err, res) => {
         res.should.have.status(400);
@@ -104,7 +104,7 @@ describe("Get Book by Id api", () => {
     const token = bookDB.book.validToken;
     chai
       .request(server)
-      .get("/books/61e2c6144726986d2c1eb5fa")
+      .get("/books/getbook/61e2c6144726986d2c1eb5fa")
       .set({ authorization: token })
       .end((err, res) => {
         res.should.have.status(200);
@@ -118,7 +118,7 @@ describe("searchbook api", () => {
     const token = bookDB.book.validToken;
     chai
       .request(server)
-      .get("/searchbook/title")
+      .get("/books/searchbook/title")
       .set({ authorization: token })
       .end((err, res) => {
         res.should.have.status(200);
@@ -130,7 +130,7 @@ describe("searchbook api", () => {
     const token = bookDB.book.validToken;
     chai
       .request(server)
-      .get("/searchbook/tit")
+      .get("/books/searchbook/tit")
       .set({ authorization: token })
       .end((err, res) => {
         res.should.have.status(200);
@@ -142,7 +142,7 @@ describe("searchbook api", () => {
     const token = bookDB.book.invalidToken;
     chai
       .request(server)
-      .get("/searchbook/title")
+      .get("/books/searchbook/title")
       .set({ authorization: token })
       .end((err, res) => {
         res.should.have.status(400);
@@ -163,7 +163,7 @@ describe("Update boook api", () => {
     };
     chai
       .request(server)
-      .put("/updatebooks/61e8d2db04c7acfeb5c7b444")
+      .put("/books/updatebook/61e8d2db04c7acfeb5c7b444")
       .set({ authorization: token })
       .send(updatebook)
       .end((err, res) => {
@@ -183,7 +183,7 @@ describe("Update boook api", () => {
     };
     chai
       .request(server)
-      .put("/updatebooks/61e8d2db04c7acfeb5c7b444")
+      .put("/books/updatebook/61e8d2db04c7acfeb5c7b444")
       .set({ authorization: token })
       .send(updatebook)
       .end((err, res) => {
@@ -203,7 +203,7 @@ describe("Update boook api", () => {
     };
     chai
       .request(server)
-      .put("/updatebooks/61e8d2db04c7acfeb5c7b444")
+      .put("/books/updatebook/61e8d2db04c7acfeb5c7b444")
       .set({ authorization: token })
       .send(updatebook)
       .end((err, res) => {
@@ -223,7 +223,7 @@ describe("Update boook api", () => {
     };
     chai
       .request(server)
-      .put("/updatebooks/61e8d2db04c7acfeb5c7b444")
+      .put("/books/updatebook/61e8d2db04c7acfeb5c7b444")
       .set({ authorization: token })
       .send(updatebook)
       .end((err, res) => {
@@ -236,10 +236,10 @@ describe("Update boook api", () => {
 describe("delete book api", () => {
   it("givenImPoperDetails_ShouldDeleteBook", (done) => {
     const token = bookDB.book.validToken;
-    const id = uuid();
+    const bookId = uuid();
     chai
       .request(server)
-      .delete(`/deletebooks/${id}`)
+      .delete(`/books/deletebook/${bookId}`)
       .set({ authorization: token })
       .end((err, res) => {
         res.should.have.status(200);
@@ -251,7 +251,7 @@ describe("delete book api", () => {
     const token = bookDB.book.validToken;
     chai
       .request(server)
-      .delete("/deletebooks/61e8e0ba6080d09d3569b079")
+      .delete("/books/deletebook/61e8e0ba6080d09d3569b079")
       .set({ authorization: token })
       .end((err, res) => {
         res.should.have.status(404);
@@ -263,7 +263,7 @@ describe("delete book api", () => {
     const token = bookDB.book.invalidToken;
     chai
       .request(server)
-      .delete("/deletebooks/20")
+      .delete("/books/deletebook/20")
       .set({ authorization: token })
       .end((err, res) => {
         res.should.have.status(400);

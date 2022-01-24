@@ -14,7 +14,7 @@ describe("AddToCart api", () => {
     };
     chai
       .request(server)
-      .post("/addToCart/61e2ede9c3e5c7f047590d32")
+      .post("/carts/addToCart/61e2ede9c3e5c7f047590d32")
       .set({ authorization: token })
       .send(qty)
       .end((err, res) => {
@@ -30,7 +30,7 @@ describe("AddToCart api", () => {
     };
     chai
       .request(server)
-      .post("/addToCart/61e2ede9c3e5c7f047590d32")
+      .post("/carts/addToCart/61e2ede9c3e5c7f047590d32")
       .set({ authorization: token })
       .send(qty)
       .end((err, res) => {
@@ -46,7 +46,7 @@ describe("AddToCart api", () => {
     };
     chai
       .request(server)
-      .post("/addToCart/61e2ede9c3e5c7f047590d32")
+      .post("/carts/addToCart/61e2ede9c3e5c7f047590d32")
       .set({ authorization: token })
       .send(qty)
       .end((err, res) => {
@@ -61,7 +61,7 @@ describe("Get AllCarts", () => {
     const token = data.validToken;
     chai
       .request(server)
-      .get("/carts")
+      .get("/carts/cart")
       .set({ authorization: token })
       .end((err, res) => {
         res.should.have.status(200);
@@ -73,7 +73,7 @@ describe("Get AllCarts", () => {
     const token = data.invalidToken;
     chai
       .request(server)
-      .get("/carts")
+      .get("/carts/cart")
       .set({ authorization: token })
       .end((err, res) => {
         res.should.have.status(400);
@@ -87,7 +87,7 @@ describe("Get cart by ID api", () => {
     const token = data.validToken;
     chai
       .request(server)
-      .get("/cart/61e2959a4cc338e59bcb0671")
+      .get("/carts/cart/61e2959a4cc338e59bcb0671")
       .set({ authorization: token })
       .end((err, res) => {
         res.should.have.status(200);
@@ -99,7 +99,7 @@ describe("Get cart by ID api", () => {
     const token = data.validToken;
     chai
       .request(server)
-      .get("/cart/61e2959a4cc338e59bcb067")
+      .get("/carts/cart/61e2959a4cc338e59bcb067")
       .set({ authorization: token })
       .end((err, res) => {
         res.should.have.status(400);
@@ -111,7 +111,7 @@ describe("Get cart by ID api", () => {
     const token = data.invalidToken;
     chai
       .request(server)
-      .get("/cart/61e2959a4cc338e59bcb0671")
+      .get("/carts/cart/61e2959a4cc338e59bcb0671")
       .set({ authorization: token })
       .end((err, res) => {
         res.should.have.status(400);
@@ -128,7 +128,7 @@ describe("placeOrder api", () => {
     };
     chai
       .request(server)
-      .put("/placeOrder/61e67486c8033e2f6fe1a56a")
+      .put("/carts/placeOrder/61e67486c8033e2f6fe1a56a")
       .set({ authorization: token })
       .send(isPurchased)
       .end((err, res) => {
@@ -144,7 +144,7 @@ describe("placeOrder api", () => {
     };
     chai
       .request(server)
-      .put("/placeOrder/61e67486c8033e2f6fe1a56a")
+      .put("/carts/placeOrder/61e67486c8033e2f6fe1a56a")
       .set({ authorization: token })
       .send(isPurchased)
       .end((err, res) => {
@@ -162,7 +162,7 @@ describe("removeBookFromCart api", () => {
     };
     chai
       .request(server)
-      .post("/addToCart/61e2ede9c3e5c7f047590d32")
+      .post("/carts/addToCart/61e2ede9c3e5c7f047590d32")
       .set({ authorization: token })
       .send(qty)
       .end((err, res) => {
@@ -178,7 +178,7 @@ describe("removeBookFromCart api", () => {
     };
     chai
       .request(server)
-      .delete("/removeBookFromCart")
+      .delete("/carts/removeBookFromCart")
       .set({ authorization: token })
       .send(removeBookId)
       .end((err, res) => {
@@ -194,7 +194,7 @@ describe("removeBookFromCart api", () => {
     };
     chai
       .request(server)
-      .delete("/removeBookFromCart")
+      .delete("/carts/removeBookFromCart")
       .set({ authorization: token })
       .send(removeBookId)
       .end((err, res) => {

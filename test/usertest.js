@@ -18,7 +18,7 @@ describe("user registartion", () => {
     };
     chai
       .request(server)
-      .post("/userRegistration")
+      .post("/users/user")
       .send(registerfaker)
       .end((err, res) => {
         if (err) {
@@ -31,7 +31,7 @@ describe("user registartion", () => {
   it("givenRegistrationDetails_whenNoProper_NotSaveInDB", (done) => {
     chai
       .request(server)
-      .post("/userRegistration")
+      .post("/users/user")
       .send(registrationData.user.registrationNotProperDetails)
       .end((err, res) => {
         res.should.have.status(400);
@@ -51,7 +51,7 @@ describe("admin registartion", () => {
     };
     chai
       .request(server)
-      .post("/adminRegistration")
+      .post("/users/admin")
       .send(registerfaker)
       .end((err, res) => {
         res.should.have.status(200);
@@ -61,7 +61,7 @@ describe("admin registartion", () => {
   it("givenAdminRegistrationDetails_whenNotProper_thenNotSaveInDB", (done) => {
     chai
       .request(server)
-      .post("/adminRegistration")
+      .post("/users/admin")
       .send(registrationData.user.registrationNotProperDetails)
       .end((err, res) => {
         res.should.have.status(400);
@@ -70,11 +70,11 @@ describe("admin registartion", () => {
   });
 });
 
-describe("login", () => {
+describe("User login api's", () => {
   it("givenLoginDetails_whenProper_shouldAbleToLogin", (done) => {
     chai
       .request(server)
-      .post("/login")
+      .post("/users/login")
       .send(registrationData.user.login)
       .end((err, res) => {
         res.should.have.status(200);
@@ -84,7 +84,7 @@ describe("login", () => {
   it("givenUserLoginDetails_whenImproper_shouldUnableToLogin", (done) => {
     chai
       .request(server)
-      .post("/login")
+      .post("/users/login")
       .send(registrationData.user.loginWithWrongDetails)
       .end((err, res) => {
         res.should.have.status(400);
