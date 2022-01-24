@@ -4,7 +4,7 @@ class CartController {
     try {
       const userInfo = {
         userId: req.user.dataForToken.id,
-        itemId: req.params.id,
+        itemId: req.params.bookId,
         qty: req.body.qty,
       };
       console.log(userInfo, "userInfo in controller");

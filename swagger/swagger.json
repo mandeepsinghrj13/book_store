@@ -16,7 +16,7 @@
     "consumes": ["application/json"],
     "produces": ["application/json"],
     "paths": {
-        "/userRegistration": {
+        "/users/user": {
             "post": {
                 "tags": ["BookStore"],
                 "description": "User Register in Book Store",
@@ -44,7 +44,7 @@
                 }
             }
         },
-        "/adminRegistration": {
+        "/users/admin": {
             "post": {
                 "tags": ["BookStore"],
                 "description": "Register Admin in Book Store",
@@ -72,7 +72,7 @@
                 }
             }
         },
-        "/login": {
+        "/users/login": {
             "post": {
                 "tags": ["Login"],
                 "description": "Login user",
@@ -98,7 +98,7 @@
                 }
             }
         },
-        "/books": {
+        "/books/addbook": {
             "post": {
                 "tags": [
                     "Add Books"
@@ -142,7 +142,7 @@
                 }
             }
         },
-        "/getbooks": {
+        "/books/getallbook": {
             "get": {
                 "tags": [
                     "Get Books"
@@ -167,7 +167,7 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "get all ote succesfully !!"
+                        "description": "get all book succesfully !!"
                     },
                     "401": {
                         "description": "please enter valid token"
@@ -178,7 +178,7 @@
                 }
             }
         },
-        "/books/{id}": {
+        "/books/getbook/{bookId}": {
             "get": {
                 "tags": [
                     "Get Books"
@@ -195,7 +195,7 @@
                         }
                     },
                     {
-                        "name": "id",
+                        "name": "bookId",
                         "in": "path",
                         "description": "Id of book you want to fetch",
                         "schema": {
@@ -222,7 +222,7 @@
                 }
             }
         },
-        "/searchbook/{title}":{
+        "/books/searchbook/{title}":{
             "get":{
               "tags":["search title"],
               "description":"search title",
@@ -252,7 +252,7 @@
               }
             }
         },
-        "/updatebooks/{bookId}": {
+        "/books/updatebook/{bookId}": {
             "put": {
                 "tags": [
                     "update Books"
@@ -301,7 +301,7 @@
                 }
             }
         },
-        "/deletebooks/{id}": {
+        "/books/deletebook/{bookId}": {
             "delete": {
                 "tags": [
                     "Delete Books"
@@ -319,7 +319,7 @@
                     },
                     {
                         "in": "path",
-                        "name": "id",
+                        "name": "bookId",
                         "description": "Id of book you want to update",
                         "schema": {
                             "type": "string"
@@ -342,7 +342,7 @@
                 }
             }
         },
-        "/addToCart/{id}": {
+        "/carts/addToCart/{bookId}": {
             "post": {
                 "tags": ["Add To Cart"],
                 
@@ -357,7 +357,7 @@
                         }
                     },
                     {
-                        "name": "id",
+                        "name": "bookId",
                         "in": "path",
                         "description": "Enter id of the book",
                         "schema": {
@@ -387,7 +387,7 @@
                 }
             }
         },
-        "/carts":{
+        "/carts/cart":{
             "get":{
               "tags":["get all carts"],
               "description":"Get all carts",
@@ -409,10 +409,10 @@
               }
             }
         },
-        "/cart/{id}":{
+        "/carts/cart/{userId}":{
             "get":{
-              "tags":["get cart by id"],
-              "description":"Gets cart by id",
+              "tags":["get cart by userId"],
+              "description":"Gets cart by userId",
               "parameters":[
                 {
                   "in":"header",
@@ -425,7 +425,7 @@
                 },
                 {
                   "in":"path",
-                  "name":"id",
+                  "name":"userId",
                   "description":"User id",
                   "schema":{
                     "type":"string",
@@ -441,7 +441,7 @@
               }
             }
         },
-        "/removeBookFromCart":{
+        "/carts/removeBookFromCart":{
             "delete":{
               "tags":["Delete Book into cart"],
               "description":"Delete a Book",
@@ -521,8 +521,8 @@
             },
             "example": {
                 "author": "author name",
-                "quantity": "quantity of books",
-                "price": "price of the book",
+                "quantity": 2,
+                "price": 200,
                 "title": "title",
                 "description": "description "
             }

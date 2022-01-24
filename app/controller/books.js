@@ -64,7 +64,7 @@ class BookController {
 
   getBook = async (req, res) => {
     try {
-      const id = { userId: req.user.dataForToken.id, bookId: req.params.id };
+      const id = { userId: req.user.dataForToken.id, bookId: req.params.bookId };
       const data = await service.getBook(id);
       if (data.message) {
         return res.json({
