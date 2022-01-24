@@ -98,10 +98,10 @@
                 }
             }
         },
-        "/books/addbook": {
+        "/books": {
             "post": {
                 "tags": [
-                    "Add Books"
+                    "Add Book"
                 ],
                 "description": "Add book",
                 "parameters": [
@@ -140,14 +140,12 @@
                         "description": "Internal server error"
                     }
                 }
-            }
-        },
-        "/books/getallbook": {
+            },
             "get": {
                 "tags": [
-                    "Get Books"
+                    "Get AllBooks"
                 ],
-                "description": "Get a  book !!",
+                "description": "Get all book !!",
                 "parameters": [
                     {
                         "in": "header",
@@ -178,10 +176,40 @@
                 }
             }
         },
-        "/books/getbook/{bookId}": {
+        "/books/searchbook/{title}":{
+            "get":{
+              "tags":["Search Title"],
+              "description":"search title",
+              "parameters":[
+                {
+                  "in":"header",
+                  "name":"authorization",
+                  "description":"Token for validation",
+                  "schema":{
+                    "type":"string",
+                    "required":true
+                  }
+                },
+                {
+                    "in": "path",
+                    "name": "title",
+                    "description": "search title"
+                }
+              ],
+              "produces": [
+                "application/json"
+            ],
+              "responses":{
+                "200":{"description":"search by title successfully"},
+                "500":{"description":"Internal server error"},
+                "400":{"description":"not found book"}
+              }
+            }
+        },
+        "/books/{bookId}": {
             "get": {
                 "tags": [
-                    "Get Books"
+                    "Get Book"
                 ],
                 "description": "Get a book by ID for perticuler person id",
                 "parameters": [
@@ -220,42 +248,10 @@
                         "description": "Internal server error"
                     }
                 }
-            }
-        },
-        "/books/searchbook/{title}":{
-            "get":{
-              "tags":["search title"],
-              "description":"search title",
-              "parameters":[
-                {
-                  "in":"header",
-                  "name":"authorization",
-                  "description":"Token for validation",
-                  "schema":{
-                    "type":"string",
-                    "required":true
-                  }
-                },
-                {
-                    "in": "path",
-                    "name": "title",
-                    "description": "search title"
-                }
-              ],
-              "produces": [
-                "application/json"
-            ],
-              "responses":{
-                "200":{"description":"search by title successfully"},
-                "500":{"description":"Internal server error"},
-                "400":{"description":"not found book"}
-              }
-            }
-        },
-        "/books/updatebook/{bookId}": {
+            },
             "put": {
                 "tags": [
-                    "update Books"
+                    "update Book"
                 ],
                 "description": "update a book by ID for perticuler person id !!",
                 "parameters": [
@@ -299,12 +295,10 @@
                         "description": "Internal server error"
                     }
                 }
-            }
-        },
-        "/books/deletebook/{bookId}": {
+            },
             "delete": {
                 "tags": [
-                    "Delete Books"
+                    "Delete Book"
                 ],
                 "description": "Delete a book by ID for perticuler person id !!",
                 "parameters": [
@@ -342,7 +336,7 @@
                 }
             }
         },
-        "/carts/addToCart/{bookId}": {
+        "/carts/{bookId}": {
             "post": {
                 "tags": ["Add To Cart"],
                 
@@ -387,29 +381,7 @@
                 }
             }
         },
-        "/carts/cart":{
-            "get":{
-              "tags":["get all carts"],
-              "description":"Get all carts",
-              "parameters":[
-                {
-                  "in":"header",
-                "name":"authorization",
-                "description":"Token for validation",
-                "schema":{
-                  "type":"string",
-                  "required":true
-                }
-                }
-              ],
-              "produces":["application/json"],
-              "responses":{
-                "200":{"description":"carts retrieved"},
-                "500":{"description":"Couldnt retrieve carts"}
-              }
-            }
-        },
-        "/carts/cart/{userId}":{
+        "/carts/{userId}":{
             "get":{
               "tags":["get cart by userId"],
               "description":"Gets cart by userId",
@@ -441,7 +413,7 @@
               }
             }
         },
-        "/carts/placeOrder/{cartId}":{
+        "/carts/{cartId}":{
             "put":{
               "tags":["Update Order"],
               "description":"PlaceOder",
@@ -479,7 +451,27 @@
               }
             }
         },
-        "/carts/removeBookFromCart":{
+        "/carts":{
+            "get":{
+              "tags":["Get All Carts"],
+              "description":"Get all carts",
+              "parameters":[
+                {
+                  "in":"header",
+                "name":"authorization",
+                "description":"Token for validation",
+                "schema":{
+                  "type":"string",
+                  "required":true
+                }
+                }
+              ],
+              "produces":["application/json"],
+              "responses":{
+                "200":{"description":"carts retrieved"},
+                "500":{"description":"Couldnt retrieve carts"}
+              }
+            },
             "delete":{
               "tags":["Delete Book into cart"],
               "description":"Delete a Book",
