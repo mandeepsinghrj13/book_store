@@ -1,6 +1,7 @@
 const controller = require("../controller/registration");
 const booksController = require("../controller/books");
 const cartController = require("../controller/card");
+const wishController = require("../controller/wishlist");
 const helper = require("../utility/helper.js");
 const middleware = require("../utility/helper.js");
 module.exports = (app) => {
@@ -24,4 +25,6 @@ module.exports = (app) => {
   app.get("/carts/:userId", middleware.validateToken, cartController.getCart);
   app.put("/carts/:cartId", middleware.validateToken, cartController.placeOrder);
   app.delete("/carts", middleware.validateToken, cartController.removeBookFromCart);
+
+  app.post("/wishlist/:bookId", middleware.validateToken, wishController.addToWish);
 };
