@@ -497,6 +497,51 @@
                 "400":{"description":"Invalid Token/unable to remove "}
               }
             }    
+        },
+        "/wishlist/{bookId}": {
+            "post": {
+                "tags": ["Add To WishList"],
+                
+                "description": "Add a book to the Wishlist",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Enter token recieved in login",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "bookId",
+                        "in": "path",
+                        "description": "Enter id of the book",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "Add Book to the wishlist",
+                        "in": "body",
+                        "description": "Add to wishList",
+                        "schema": { 
+                            "$ref": "#/definitions/addToCart"
+                        }
+                    }
+                ],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "Book added into wishlist successfully"
+                    },
+                    "401":{
+                        "description": "Unauthorized token"
+                    },
+                    "400": {
+                        "description": "Error"
+                    }
+                }
+            }
         }
     },
     "definitions": {
