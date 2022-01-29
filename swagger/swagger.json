@@ -541,7 +541,35 @@
                         "description": "Error"
                     }
                 }
-            }
+            },
+            "delete":{
+                "tags":["Delete Book into wishlist"],
+                "description":"Delete Book from wishlist",
+                "parameters":[{
+                  "in":"header",
+                    "name":"authorization",
+                    "description":"Token for validation",
+                    "schema":{
+                      "type":"string",
+                      "required":true
+                  }
+                },
+                {
+                    "name": "bookId",
+                    "in": "path",
+                    "description": "Enter id of the book",
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "produces":["application/json"],
+                "responses":{
+                  "200":{"description":"book removed from cart successfully"},
+                  "500":{"description":"Internal server error"},
+                  "404":{"description":"book not found in wishlist"},
+                  "400":{"description":"Invalid Token/unable to remove "}
+                }
+              }
         }
     },
     "definitions": {
