@@ -25,7 +25,7 @@ const bookSchema = mongoose.Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 const Books = mongoose.model("Books", bookSchema);
@@ -83,7 +83,7 @@ class Model {
           price: bookDetails.price,
           description: bookDetails.description,
         },
-        { new: true }
+        { new: true },
       )
 
         .then((data) => resolve(data))

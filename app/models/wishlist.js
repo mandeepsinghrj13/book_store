@@ -9,9 +9,6 @@ const wishlistSchema = mongoose.Schema(
           type: mongoose.Schema.Types.ObjectId,
           ref: "Books",
         },
-        qty: {
-          type: Number,
-        },
       },
     ],
   },
@@ -29,7 +26,6 @@ class wishListModels {
       book: [
         {
           bookId: info.itemId,
-          qty: info.qty,
         },
       ],
     });
@@ -41,7 +37,6 @@ class wishListModels {
           data
             .save()
             .then((data) => {
-              console.log("empty");
               return callback(null, data);
             })
             .catch((error) => {
@@ -50,39 +45,19 @@ class wishListModels {
         } else {
           let updated = false;
           const index = result.book.findIndex((item) => item.bookId == info.itemId);
-          console.log("index = ", index);
           if (index >= 0) {
             updated = true;
-            const newBook = {
-              bookId: result.book[index].bookId,
-              qty: result.book[index].qty + info.qty,
-            };
-            console.log("Old Book", result.book[index]);
-            console.log("newBook = ", newBook);
-            wishlistModel.updateOne({ _id: result._id }, { $pull: { book: result.book[index] } }, { new: true }, (err, res) => {
-              console.log(result._id, "id pull");
-              console.log(err, res);
-            });
-            wishlistModel.updateOne({ _id: result._id }, { $push: { book: newBook } }, { new: true }, (err, res) => {
-              if (err) {
-                return callback("Error in updating quantity", null);
-              } else {
-                return callback(null, "wishList updated");
-              }
-            });
+            return callback(err, null);
           }
-
           if (updated == false) {
             const newBook = {
               bookId: info.itemId,
-              qty: info.qty,
             };
             wishlistModel.findByIdAndUpdate(result._id, { $push: { book: newBook } }, { new: true }, (err, res) => {
               if (err) {
-                console.log(err);
                 return callback("Error in adding wishList", null);
               } else {
-                return callback(null, "new book added into WishList");
+                return callback(null, data);
               }
             });
           }
