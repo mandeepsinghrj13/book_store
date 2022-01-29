@@ -10,6 +10,13 @@ class Service {
       }
     });
   };
+  removeBook = async (data) => {
+    try {
+      return await models.removeBook(data);
+    } catch (err) {
+      return err;
+    }
+  };
 }
 
 module.exports = new Service();

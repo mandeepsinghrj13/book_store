@@ -31,5 +31,27 @@ class wishListController {
       });
     }
   };
+  removeBook = async (req, res) => {
+    try {
+      const id = { userId: req.user.dataForToken.id, bookId: req.params.bookId };
+      const data = await services.removeBook(id);
+      if (data) {
+        return res.status(200).json({
+          success: true,
+          message: "book removed from wishlist successfully",
+        });
+      } else {
+        return res.status(404).json({
+          success: false,
+          message: "book not found in wishlist",
+        });
+      }
+    } catch {
+      res.status(500).send({
+        success: false,
+        message: "Internal server error",
+      });
+    }
+  };
 }
 module.exports = new wishListController();

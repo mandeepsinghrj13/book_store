@@ -27,4 +27,5 @@ module.exports = (app) => {
   app.delete("/carts", middleware.validateToken, cartController.removeBookFromCart);
 
   app.post("/wishlist/:bookId", middleware.validateToken, wishController.addToWish);
+  app.delete("/wishlist/:bookId", middleware.validateToken, wishController.removeBook);
 };
