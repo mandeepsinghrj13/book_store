@@ -43,13 +43,10 @@ class wishListModels {
               return callback(error, null);
             });
         } else {
-          let updated = false;
           const index = result.book.findIndex((item) => item.bookId == info.itemId);
           if (index >= 0) {
-            updated = true;
             return callback(err, null);
-          }
-          if (updated == false) {
+          } else {
             const newBook = {
               bookId: info.itemId,
             };
